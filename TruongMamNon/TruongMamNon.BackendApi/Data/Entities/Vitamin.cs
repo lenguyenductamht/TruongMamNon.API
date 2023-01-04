@@ -6,6 +6,6 @@
         public string TenVitamin { get; set; }
         public string GhiChu { get; set; }
 
-        public List<PhieuUongVitamin> PhieuUongVitamins { get; set; }
+        public List<DotUongVitamin> DotUongVitamins { get; set; }
     }
 }

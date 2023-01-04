@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TruongMamNon.BackendApi.Data.Entities
+﻿namespace TruongMamNon.BackendApi.Data.Entities
 {
     public class PhieuTiemVaccine
     {
-        public int MaVaccine { get; set; }
+        public long MaPhieuTiemVaccine { get; set; }
+        public int MaDotTiemVaccine { get; set; }
         public string MaHocSinh { get; set; }
-        public DateTime NgayTiem { get; set; }
+        public string TrangThai { get; set; }
 
-        public Vaccine Vaccine { get; set; }
+        public DotTiemVaccine DotTiemVaccine { get; set; }
         public HocSinh HocSinh { get; set; }
     }
 }

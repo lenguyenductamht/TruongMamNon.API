@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TruongMamNon.BackendApi.Data.EF;
 using TruongMamNon.BackendApi.Data.Entities;
 using TruongMamNon.BackendApi.Helpers;
-using TruongMamNon.BackendApi.ViewModels.MamNon;
-using TruongMamNon.BackendApi.ViewModels.NhanSu;
-using TruongMamNon.BackendApi.ViewModels.TruongHoc;
-using XAct;
+using TruongMamNon.BackendApi.ViewModels;
 
 namespace TruongMamNon.BackendApi.Controllers
 {

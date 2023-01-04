@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TruongMamNon.BackendApi.Data.Entities;
 
 namespace TruongMamNon.BackendApi.Data.Configurations

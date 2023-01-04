@@ -6,6 +6,6 @@
         public string TenVaccine { get; set; }
         public string GhiChu { get; set; }
 
-        public List<PhieuTiemVaccine> PhieuTiemVaccines { get; set; }
+        public List<DotTiemVaccine> DotTiemVaccines { get; set; }
     }
 }

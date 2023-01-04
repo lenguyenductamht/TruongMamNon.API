@@ -1,9 +1,6 @@
-﻿using TruongMamNon.BackendApi.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using TruongMamNon.BackendApi.Data.Entities;
 
 namespace TruongMamNon.BackendApi.Data.Configurations
 {
@@ -12,9 +9,12 @@ namespace TruongMamNon.BackendApi.Data.Configurations
         public void Configure(EntityTypeBuilder<PhieuSoGiun> builder)
         {
             builder.ToTable("PhieuSoGiuns");
-            builder.HasKey(x => new { x.MaThuocSoGiun, x.NgaySoGiun, x.MaHocSinh });
+            builder.HasKey(x => x.MaPhieuSoGiun);
+            builder.Property(x => x.MaDotSoGiun).IsRequired();
+            builder.Property(x => x.MaHocSinh).IsRequired();
+            builder.Property(x => x.TrangThai).IsRequired(false);
 
-            builder.HasOne(x => x.ThuocSoGiun).WithMany(x => x.PhieuSoGiuns).HasForeignKey(x => x.MaThuocSoGiun);
+            builder.HasOne(x => x.DotSoGiun).WithMany(x => x.PhieuSoGiuns).HasForeignKey(x => x.MaDotSoGiun);
             builder.HasOne(x => x.HocSinh).WithMany(x => x.PhieuSoGiuns).HasForeignKey(x => x.MaHocSinh);
         }
     }

@@ -6,6 +6,6 @@
         public string TenThuocSoGiun { get; set; }
         public string GhiChu { get; set; }
 
-        public List<PhieuSoGiun> PhieuSoGiuns { get; set; }
+        public List<DotSoGiun> DotSoGiuns { get; set; }
     }
 }

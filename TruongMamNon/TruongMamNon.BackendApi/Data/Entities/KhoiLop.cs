@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TruongMamNon.BackendApi.Data.Entities
+﻿namespace TruongMamNon.BackendApi.Data.Entities
 {
     public class KhoiLop
     {

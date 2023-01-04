@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using TruongMamNon.BackendApi.Data.EF;
 using TruongMamNon.BackendApi.Data.Entities;
-using TruongMamNon.BackendApi.Helpers;
+using TruongMamNon.BackendApi.Repositories;
+using TruongMamNon.BackendApi.RequestModels;
 using TruongMamNon.BackendApi.ViewModels;
-using TruongMamNon.BackendApi.ViewModels.HeThong;
 
 namespace TruongMamNon.BackendApi.Controllers
 {
@@ -15,119 +11,63 @@ namespace TruongMamNon.BackendApi.Controllers
     [ApiController]
     public class NienHocsController : ControllerBase
     {
-        private readonly TruongMamNonDbContext _context;
+        private readonly INienHocRepository _nienHocRepository;
+        private readonly IMapper _mapper;
 
-        public NienHocsController(TruongMamNonDbContext context)
+        public NienHocsController(INienHocRepository nienHocRepository, IMapper mapper)
         {
-            _context = context;
+            _nienHocRepository = nienHocRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostNienHoc(NienHocVm model)
+        public async Task<IActionResult> AddNienHoc([FromBody] AUNienHocRequest request)
         {
-            var nienHoc = new NienHoc()
-            {
-                TenNienHoc = model.TenNienHoc,
-                BatDauHK1 = model.BatDauHK1,
-                KetThucHK1 = model.KetThucHK1,
-                BatDauHK2 = model.BatDauHK2,
-                KetThucHK2 = model.KetThucHK2
-            };
-            _context.NienHocs.Add(nienHoc);
-            var result = await _context.SaveChangesAsync();
-
-            if (result > 0)
-            {
-                return CreatedAtAction(nameof(GetByMa), new { ma = nienHoc.MaNienHoc }, model);
-            }
-            else
-            {
-                return BadRequest(new ApiBadRequestResponse("Tạo mới không thành công"));
-            }
+            var nienHoc = await _nienHocRepository.AddNienHoc(_mapper.Map<NienHoc>(request));
+            return CreatedAtAction(nameof(GetNienHocs), new { maNienHoc = nienHoc.MaNienHoc }, _mapper.Map<NienHocVm>(nienHoc));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetNienHocs()
         {
-            var nienHocs = _context.NienHocs.OrderByDescending(x => x.TenNienHoc);
-            var nienHocVms = await nienHocs.Select(x => new NienHocVm()
-            {
-                MaNienHoc = x.MaNienHoc,
-                TenNienHoc = x.TenNienHoc,
-                BatDauHK1 = x.BatDauHK1,
-                KetThucHK1 = x.KetThucHK1,
-                BatDauHK2 = x.BatDauHK2,
-                KetThucHK2 = x.KetThucHK2
-            }).ToListAsync();
-            return Ok(nienHocVms);
+            var nienHocs = await _nienHocRepository.GetNienHocs();
+            return Ok(_mapper.Map<List<NienHocVm>>(nienHocs));
         }
 
-        [HttpGet("{ma}")]
-        public async Task<IActionResult> GetByMa(int ma)
+        [HttpGet("{maNienHoc}"), ActionName("GetNienHoc")]
+        public async Task<IActionResult> GetNienHoc([FromRoute] int maNienHoc)
         {
-            var nienHoc = await _context.NienHocs.FindAsync(ma);
+            var nienHoc = await _nienHocRepository.GetNienHoc(maNienHoc);
             if (nienHoc == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-
-            NienHocVm nienHocVm = new NienHocVm()
             {
-                MaNienHoc = nienHoc.MaNienHoc,
-                TenNienHoc = nienHoc.TenNienHoc,
-                BatDauHK1 = nienHoc.BatDauHK1,
-                KetThucHK1 = nienHoc.KetThucHK1,
-                BatDauHK2 = nienHoc.BatDauHK2,
-                KetThucHK2 = nienHoc.KetThucHK2
-            };
-
-            return Ok(nienHocVm);
-        }
-
-        [HttpPut("{ma}")]
-        public async Task<IActionResult> PutNienHoc(int ma, [FromBody] NienHocVm model)
-        {
-            var nienHoc = await _context.NienHocs.FindAsync(ma);
-            if (nienHoc == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-            nienHoc.MaNienHoc = model.MaNienHoc;
-            nienHoc.TenNienHoc = model.TenNienHoc;
-            nienHoc.BatDauHK1 = model.BatDauHK1;
-            nienHoc.KetThucHK1 = model.KetThucHK1;
-            nienHoc.BatDauHK2 = model.BatDauHK2;
-            nienHoc.KetThucHK2 = model.KetThucHK2;
-
-            _context.NienHocs.Update(nienHoc);
-            var result = await _context.SaveChangesAsync();
-
-            if (result > 0)
-            {
-                return NoContent();
+                return NotFound();
             }
-            return BadRequest(new ApiBadRequestResponse("Cập nhật không thành công"));
+            return Ok(_mapper.Map<NienHocVm>(nienHoc));
         }
 
-        [HttpDelete("{ma}")]
-        public async Task<IActionResult> DeleteNienHoc(int ma)
+        [HttpPut("{maNienHoc}")]
+        public async Task<IActionResult> UpdateNienHoc([FromRoute] int maNienHoc, [FromBody] AUNienHocRequest request)
         {
-            var nienHoc = await _context.NienHocs.FindAsync(ma);
-            if (nienHoc == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-
-            _context.NienHocs.Remove(nienHoc);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
+            if (await _nienHocRepository.Exists(maNienHoc))
             {
-                NienHocVm nienHocVm = new NienHocVm()
+                var nienHoc = await _nienHocRepository.UpdateNienHoc(maNienHoc, _mapper.Map<NienHoc>(request));
+                if (nienHoc != null)
                 {
-                    MaNienHoc = nienHoc.MaNienHoc,
-                    TenNienHoc = nienHoc.TenNienHoc,
-                    BatDauHK1 = nienHoc.BatDauHK1,
-                    KetThucHK1 = nienHoc.KetThucHK1,
-                    BatDauHK2 = nienHoc.BatDauHK2,
-                    KetThucHK2 = nienHoc.KetThucHK2
-                };
-                return Ok(nienHocVm);
+                    return Ok(_mapper.Map<NienHocVm>(nienHoc));
+                }
             }
-            return BadRequest(new ApiBadRequestResponse("Xóa không thành công"));
+            return NotFound();
+        }
+
+        [HttpDelete("{maNienHoc}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int maNienHoc)
+        {
+            if (await _nienHocRepository.Exists(maNienHoc))
+            {
+                var nienHoc = await _nienHocRepository.DeleteNienHoc(maNienHoc);
+                return Ok(_mapper.Map<NienHocVm>(nienHoc));
+            }
+            return NotFound();
         }
     }
 }

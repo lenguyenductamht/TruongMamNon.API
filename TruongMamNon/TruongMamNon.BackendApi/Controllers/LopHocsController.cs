@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Metadata;
-using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TruongMamNon.BackendApi.Data.EF;
 using TruongMamNon.BackendApi.Data.Entities;
 using TruongMamNon.BackendApi.Helpers;
-using TruongMamNon.BackendApi.ViewModels.HeThong;
-using TruongMamNon.BackendApi.ViewModels.MamNon;
+using TruongMamNon.BackendApi.Repositories;
+using TruongMamNon.BackendApi.RequestModels;
+using TruongMamNon.BackendApi.ViewModels;
 
 namespace TruongMamNon.BackendApi.Controllers
 {
@@ -15,129 +14,77 @@ namespace TruongMamNon.BackendApi.Controllers
     [ApiController]
     public class LopHocsController : ControllerBase
     {
-        private readonly TruongMamNonDbContext _context;
+        private readonly ILopHocRepository _lopHocRepository;
+        private readonly IMapper _mapper;
 
-        public LopHocsController(TruongMamNonDbContext context)
+        public LopHocsController(ILopHocRepository lopHocRepository, IMapper mapper)
         {
-            _context = context;
+            _lopHocRepository = lopHocRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostLopHoc(CreateLopHocVm model)
+        public async Task<IActionResult> AddLopHoc([FromBody] AULopHocRequest request)
         {
-            var lopHoc = new LopHoc()
-            {
-                TenLop = model.TenLop,
-                MaKhoiLop = model.MaKhoiLop,
-                HocPhi = model.HocPhi,
-                MaNienHoc = model.MaNienHoc,
-            };
-            _context.LopHocs.Add(lopHoc);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
-            {
-                return CreatedAtAction(nameof(GetByMa), new { ma = lopHoc.MaLop }, model);
-            }
-            return BadRequest(new ApiBadRequestResponse("Tạo mới không thành công"));
+            var lopHoc = await _lopHocRepository.AddLopHoc(_mapper.Map<LopHoc>(request));
+            return CreatedAtAction(nameof(GetLopHocs), new { maLopHoc = lopHoc.MaLop }, _mapper.Map<LopHocVm>(lopHoc));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetLopHocs()
+        {
+            var lopHocs = await _lopHocRepository.GetLopHocs();
+            return Ok(_mapper.Map<List<LopHocVm>>(lopHocs));
         }
 
         [HttpGet("NienHoc/{maNienHoc}")]
         public async Task<IActionResult> GetLopHocsByNienHoc(int maNienHoc)
         {
-            var lopHocs = _context.LopHocs.Where(x => x.MaNienHoc == maNienHoc).Include(x => x.KhoiLop).Include(x => x.NienHoc).OrderBy(x => x.TenLop);
-            var lopHocVms = await lopHocs.Select(x => new LopHocVm()
-            {
-                MaLop = x.MaLop,
-                TenLop = x.TenLop,
-                MaKhoiLop = x.MaKhoiLop,
-                HocPhi = x.HocPhi,
-                MaNienHoc = x.MaNienHoc,
-                KhoiLop = x.KhoiLop,
-                NienHoc = x.NienHoc,
-            }).ToListAsync();
-            return Ok(lopHocVms);
+            var lopHocs = await _lopHocRepository.GetLopHocsByNienHoc(maNienHoc);
+            return Ok(_mapper.Map<List<LopHocVm>>(lopHocs));
         }
 
-        [HttpGet("NienHoc/{maNienHoc}/{maKhoiLop}")]
+        [HttpGet("NienHoc/{maNienHoc}/KhoiLop/{maKhoiLop}")]
         public async Task<IActionResult> GetLopHocsByNienHocKhoiLop(int maNienHoc, int maKhoiLop)
         {
-            var lopHocs = _context.LopHocs.Where(x => x.MaNienHoc == maNienHoc && x.MaKhoiLop == maKhoiLop).Include(x => x.KhoiLop).Include(x => x.NienHoc).OrderBy(x => x.TenLop);
-            var lopHocVms = await lopHocs.Select(x => new LopHocVm()
-            {
-                MaLop = x.MaLop,
-                TenLop = x.TenLop,
-                MaKhoiLop = x.MaKhoiLop,
-                HocPhi = x.HocPhi,
-                MaNienHoc = x.MaNienHoc,
-                KhoiLop = x.KhoiLop,
-                NienHoc = x.NienHoc,
-            }).ToListAsync();
-            return Ok(lopHocVms);
+            var lopHocs = await _lopHocRepository.GetLopHocsByNienHocKhoiLop(maNienHoc, maKhoiLop);
+            return Ok(_mapper.Map<List<LopHocVm>>(lopHocs));
         }
 
-        [HttpGet("{ma}")]
-        public async Task<IActionResult> GetByMa(int ma)
+        [HttpGet("{maLopHoc}"), ActionName("GetLopHoc")]
+        public async Task<IActionResult> GetLopHoc([FromRoute] int maLopHoc)
         {
-            var lopHoc = await _context.LopHocs.FindAsync(ma);
+            var lopHoc = await _lopHocRepository.GetLopHoc(maLopHoc);
             if (lopHoc == null)
             {
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
+                return NotFound();
             }
-            LopHocVm lopHocVm = new LopHocVm()
-            {
-                MaLop = lopHoc.MaLop,
-                TenLop = lopHoc.TenLop,
-                MaKhoiLop = lopHoc.MaKhoiLop,
-                HocPhi = lopHoc.HocPhi,
-                MaNienHoc = lopHoc.MaNienHoc
-            };
-            return Ok(lopHocVm);
+            return Ok(_mapper.Map<LopHocVm>(lopHoc));
         }
 
-        [HttpPut("{ma}")]
-        public async Task<IActionResult> PutLopHoc(int ma, CreateLopHocVm model)
+        [HttpPut("{maLopHoc}")]
+        public async Task<IActionResult> UpdateLopHoc([FromRoute] int maLopHoc, [FromBody] AULopHocRequest request)
         {
-            var lopHoc = await _context.LopHocs.FindAsync(ma);
-            if (lopHoc == null)
+            if (await _lopHocRepository.Exists(maLopHoc))
             {
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-            }
-            lopHoc.TenLop = model.TenLop;
-            lopHoc.MaKhoiLop = model.MaKhoiLop;
-            lopHoc.HocPhi = model.HocPhi;
-            lopHoc.MaNienHoc = model.MaNienHoc;
-            _context.LopHocs.Update(lopHoc);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
-            {
-                return NoContent();
-            }
-            return BadRequest(new ApiBadRequestResponse("Cập nhật không thành công"));
-        }
-
-        [HttpDelete("{ma}")]
-        public async Task<IActionResult> DeleteLopHoc(int ma)
-        {
-            var lopHoc = await _context.LopHocs.FindAsync(ma);
-            if (lopHoc == null)
-            {
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-            }
-            _context.LopHocs.Remove(lopHoc);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
-            {
-                LopHocVm lopHocVm = new LopHocVm()
+                var lopHoc = await _lopHocRepository.UpdateLopHoc(maLopHoc, _mapper.Map<LopHoc>(request));
+                if (lopHoc != null)
                 {
-                    MaLop = lopHoc.MaLop,
-                    TenLop = lopHoc.TenLop,
-                    MaKhoiLop = lopHoc.MaKhoiLop,
-                    HocPhi = lopHoc.HocPhi,
-                    MaNienHoc = lopHoc.MaNienHoc,
-                };
-                return Ok(lopHocVm);
+                    return Ok(_mapper.Map<LopHocVm>(lopHoc));
+                }
             }
-            return BadRequest(new ApiBadRequestResponse("Xóa không thành công"));
+            return NotFound();
+        }
+
+        [HttpDelete("{maLopHoc}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int maLopHoc)
+        {
+            if (await _lopHocRepository.Exists(maLopHoc))
+            {
+                var lopHoc = await _lopHocRepository.DeleteLopHoc(maLopHoc);
+                return Ok(_mapper.Map<LopHocVm>(lopHoc));
+            }
+            return NotFound();
         }
     }
 }

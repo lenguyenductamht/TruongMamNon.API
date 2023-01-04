@@ -1,9 +1,7 @@
-using Microsoft.CodeAnalysis.Host.Mef;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using TruongMamNon.BackendApi.Data.EF;
-using TruongMamNon.BackendApi.Data.Entities;
-using TruongMamNon.BackendApi.Helpers;
-using TruongMamNon.BackendApi.Interfaces;
 using TruongMamNon.BackendApi.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,10 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
-    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+    .AddFluentValidation(c => c.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//builder.Services.AddFluentValidation(conf =>
+//{
+//    conf.RegisterValidatorsFromAssembly(typeof(Program).Assembly);
+//    conf.AutomaticValidationEnabled = false;
+//});
 
 builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
@@ -23,9 +28,13 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<TruongMamNonDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("TruongMamNonConnection")));
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddScoped<INienHocRepository, NienHocRepository>();
+builder.Services.AddScoped<IHocSinhRepository, HocSinhRepository>();
+builder.Services.AddScoped<IKhoiLopRepository, KhoiLopRepository>();
+builder.Services.AddScoped<ILopHocRepository, LopHocRepository>();
+builder.Services.AddScoped<ICommonRepository, CommonRepository>();
 
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
