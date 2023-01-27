@@ -33,6 +33,11 @@ namespace TruongMamNon.BackendApi.Repositories
             return await _context.TonGiaos.ToListAsync();
         }
 
+        public async Task<List<TrangThaiDiemDanh>> GetTrangThaiDiemDanhs()
+        {
+            return await _context.TrangThaiDiemDanhs.ToListAsync();
+        }
+
         public async Task<List<TrangThaiHoc>> GetTrangThaiHocs()
         {
             return await _context.TrangThaiHocs.ToListAsync();

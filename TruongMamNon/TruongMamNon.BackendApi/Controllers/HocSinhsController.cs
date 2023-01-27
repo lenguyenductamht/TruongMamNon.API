@@ -38,13 +38,27 @@ namespace TruongMamNon.BackendApi.Controllers
                 request.NamSinhPhuHuynh = null;
             }
             var hocSinh = await _hocSinhRepository.AddHocSinh(_mapper.Map<HocSinh>(request));
-            return CreatedAtAction(nameof(GetHocSinhs), new { maHocSinh = hocSinh.MaHocSinh }, _mapper.Map<HocSinhVm>(hocSinh));
+            return CreatedAtAction(nameof(GetHocSinh), new { maHocSinh = hocSinh.MaHocSinh }, _mapper.Map<HocSinhVm>(hocSinh));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetHocSinhs()
         {
             var hocSinhs = await _hocSinhRepository.GetHocSinhs();
+            return Ok(_mapper.Map<List<HocSinhVm>>(hocSinhs));
+        }
+
+        [HttpGet("KhoiLop/{maKhoiLop}")]
+        public async Task<IActionResult> GetHocSinhsByKhoiLop(int maKhoiLop)
+        {
+            var hocSinhs = await _hocSinhRepository.GetHocSinhsByKhoiLop(maKhoiLop);
+            return Ok(_mapper.Map<List<HocSinhVm>>(hocSinhs));
+        }
+
+        [HttpGet("LopHoc/{maLopHoc}")]
+        public async Task<IActionResult> GetHocSinhsByLopHoc(int maLopHoc)
+        {
+            var hocSinhs = await _hocSinhRepository.GetHocSinhsByLopHoc(maLopHoc);
             return Ok(_mapper.Map<List<HocSinhVm>>(hocSinhs));
         }
 

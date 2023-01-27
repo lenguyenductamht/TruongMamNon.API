@@ -10,7 +10,7 @@ namespace TruongMamNon.BackendApi.Data.Configurations
         {
             builder.ToTable("KhamSucKhoes");
             builder.HasKey(x => x.MaKhamSucKhoe);
-            builder.Property(x => x.TenDotKham).IsRequired().HasMaxLength(50);
+            builder.Property(x => x.TenDotKham).IsRequired().HasMaxLength(200);
             builder.Property(x => x.NgayKham).IsRequired();
             builder.Property(x => x.MaHocSinh).IsRequired();
             builder.Property(x => x.KetLuan).IsRequired();
@@ -46,7 +46,7 @@ namespace TruongMamNon.BackendApi.Data.Configurations
             builder.Property(x => x.HamDuoi).IsRequired();
             builder.Property(x => x.CacBenhRangHamMat).IsRequired();
 
-            builder.HasOne(x => x.HocSinh).WithMany(x => x.KhamSucKhoes).HasForeignKey(x => x.MaHocSinh);
+            //builder.HasOne(x => x.HocSinh).WithMany(x => x.KhamSucKhoes).HasForeignKey(x => x.MaHocSinh);
         }
     }
 }

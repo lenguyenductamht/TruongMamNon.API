@@ -11,7 +11,7 @@
         public double ChatBeo { get; set; }
         public double ChatBot { get; set; }
 
-        public List<MonAnThucPham> MonAnThucPhams { get; set; }
-        public List<ThucDonMonAn> ThucDonMonAns { get; set; }
+        public virtual List<MonAnThucPham> MonAnThucPhams { get; set; }
+        public virtual List<ThucDonMonAn> ThucDonMonAns { get; set; }
     }
 }

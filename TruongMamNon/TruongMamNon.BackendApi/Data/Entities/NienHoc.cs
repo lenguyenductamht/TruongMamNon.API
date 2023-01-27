@@ -9,9 +9,9 @@
         public DateTimeOffset BatDauHK2 { get; set; }
         public DateTimeOffset KetThucHK2 { get; set; }
 
-        public List<LopHoc> LopHocs { get; set; }
-        public List<DotSoGiun> DotSoGiuns { get; set; }
-        public List<DotTiemVaccine> DotTiemVaccines { get; set; }
-        public List<DotUongVitamin> DotUongVitamins { get; set; }
+        public virtual List<LopHoc> LopHocs { get; set; }
+        public virtual List<DotSoGiun> DotSoGiuns { get; set; }
+        public virtual List<DotTiemVaccine> DotTiemVaccines { get; set; }
+        public virtual List<DotUongVitamin> DotUongVitamins { get; set; }
     }
 }

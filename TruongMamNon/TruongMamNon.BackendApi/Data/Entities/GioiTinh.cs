@@ -5,7 +5,7 @@
         public string MaGioiTinh { get; set; }
         public string TenGioiTinh { set; get; }
 
-        public List<NhanSu> NhanSus { get; set; }
-        public List<HocSinh> HocSinhs { get; set; }
+        public virtual List<NhanSu> NhanSus { get; set; }
+        public virtual List<HocSinh> HocSinhs { get; set; }
     }
 }

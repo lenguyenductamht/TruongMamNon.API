@@ -10,7 +10,7 @@
 
         public NhanSu NguoiXuat { get; set; }
 
-        public List<ChiTietPhieuNhapThucPham> ChiTietPhieuNhapThucPhams { get; set; }
-        public List<ChiTietPhieuXuatThucPham> ChiTietPhieuXuatThucPhams { get; set; }
+        public virtual List<ChiTietPhieuNhapThucPham> ChiTietPhieuNhapThucPhams { get; set; }
+        public virtual List<ChiTietPhieuXuatThucPham> ChiTietPhieuXuatThucPhams { get; set; }
     }
 }

@@ -5,6 +5,6 @@
         public string MaTrangThai { get; set; }
         public string TenTrangThai { get; set; }
 
-        public List<NhanSu> NhanSus { get; set; }
+        public virtual List<NhanSu> NhanSus { get; set; }
     }
 }

@@ -6,6 +6,6 @@
         public string TenQuyen { get; set; }
         public string GhiChu { get; set; }
 
-        public List<NhanSuPhanQuyen> NhanSuPhanQuyens { get; set; }
+        public virtual List<NhanSuPhanQuyen> NhanSuPhanQuyens { get; set; }
     }
 }

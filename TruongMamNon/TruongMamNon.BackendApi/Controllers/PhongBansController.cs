@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using TruongMamNon.BackendApi.Data.EF;
 using TruongMamNon.BackendApi.Data.Entities;
 using TruongMamNon.BackendApi.Helpers;
+using TruongMamNon.BackendApi.Repositories;
+using TruongMamNon.BackendApi.RequestModels;
 using TruongMamNon.BackendApi.ViewModels;
 
 namespace TruongMamNon.BackendApi.Controllers
@@ -12,92 +14,63 @@ namespace TruongMamNon.BackendApi.Controllers
     [ApiController]
     public class PhongBansController : ControllerBase
     {
-        private readonly TruongMamNonDbContext _context;
+        private readonly IPhongBanRepository _phongBanRepository;
         private readonly IMapper _mapper;
 
-        public PhongBansController(TruongMamNonDbContext context, IMapper mapper)
+        public PhongBansController(IPhongBanRepository phongBanRepository, IMapper mapper)
         {
-            _context = context;
+            _phongBanRepository = phongBanRepository;
             _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostPhongBan(CreatePhongBanVm model)
+        public async Task<IActionResult> AddPhongBan([FromBody] AUPhongBanRequest request)
         {
-            var phongBan = new PhongBan()
-            {
-                TenPhongBan = model.TenPhongBan,
-                GhiChu = model.GhiChu,
-            };
-            _context.PhongBans.Add(phongBan);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
-                return CreatedAtAction(nameof(GetPhongBanByMa), new { ma = phongBan.MaPhongBan }, model);
-            return BadRequest(new ApiBadRequestResponse("Tạo mới không thành công"));
+            var phongBan = await _phongBanRepository.AddPhongBan(_mapper.Map<PhongBan>(request));
+            return CreatedAtAction(nameof(GetPhongBan), new { maPhongBan = phongBan.MaPhongBan }, _mapper.Map<PhongBanVm>(phongBan));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetPhongBans()
         {
-            var phongBans = _context.PhongBans;
-            var phongBanVms = await phongBans.Select(x => new PhongBanVm()
-            {
-                MaPhongBan = x.MaPhongBan,
-                TenPhongBan = x.TenPhongBan,
-                GhiChu = x.GhiChu,
-            }).ToListAsync();
-            return Ok(phongBanVms);
+            var phongBans = await _phongBanRepository.GetPhongBans();
+            return Ok(_mapper.Map<List<PhongBanVm>>(phongBans));
         }
 
-        [HttpGet("{ma}")]
-        public async Task<IActionResult> GetPhongBanByMa(int ma)
+        [HttpGet("{maPhongBan}"), ActionName("GetPhongBan")]
+        public async Task<IActionResult> GetPhongBan([FromRoute] int maPhongBan)
         {
-            var phongBan = await _context.PhongBans.FindAsync(ma);
+            var phongBan = await _phongBanRepository.GetPhongBan(maPhongBan);
             if (phongBan == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-            PhongBanVm phongBanVm = new PhongBanVm()
             {
-                MaPhongBan = phongBan.MaPhongBan,
-                TenPhongBan = phongBan.TenPhongBan,
-                GhiChu = phongBan.GhiChu,
-            };
-            return Ok(phongBanVm);
-        }
-
-        [HttpPut("{ma}")]
-        public async Task<IActionResult> PutPhongBan(int ma, CreatePhongBanVm model)
-        {
-            var phongBan = await _context.PhongBans.FindAsync(ma);
-            if (phongBan == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-            phongBan.TenPhongBan = model.TenPhongBan;
-            phongBan.GhiChu = model.GhiChu;
-            _context.PhongBans.Update(phongBan);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
-                return NoContent();
-            return BadRequest(new ApiBadRequestResponse("Cập nhật không thành công"));
-        }
-
-        [HttpDelete("{ma}")]
-        public async Task<IActionResult> DeletePhongBan(int ma)
-        {
-            var phongBan = await _context.PhongBans.FindAsync(ma);
-            if (phongBan == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-            _context.PhongBans.Remove(phongBan);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
-            {
-                PhongBanVm phongBanVm = new PhongBanVm()
-                {
-                    MaPhongBan = phongBan.MaPhongBan,
-                    TenPhongBan = phongBan.TenPhongBan,
-                    GhiChu = phongBan.GhiChu,
-                };
-                return Ok(phongBanVm);
+                return NotFound();
             }
-            return BadRequest(new ApiBadRequestResponse("Xóa không thành công"));
+            return Ok(_mapper.Map<PhongBanVm>(phongBan));
+        }
+
+        [HttpPut("{maPhongBan}")]
+        public async Task<IActionResult> UpdatePhongBan([FromRoute] int maPhongBan, [FromBody] AUPhongBanRequest request)
+        {
+            if (await _phongBanRepository.Exists(maPhongBan))
+            {
+                var phongBan = await _phongBanRepository.UpdatePhongBan(maPhongBan, _mapper.Map<PhongBan>(request));
+                if (phongBan != null)
+                {
+                    return Ok(_mapper.Map<PhongBanVm>(phongBan));
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpDelete("{maPhongBan}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int maPhongBan)
+        {
+            if (await _phongBanRepository.Exists(maPhongBan))
+            {
+                var phongBan = await _phongBanRepository.DeletePhongBan(maPhongBan);
+                return Ok(_mapper.Map<PhongBanVm>(phongBan));
+            }
+            return NotFound();
         }
     }
 }

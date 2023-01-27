@@ -13,7 +13,6 @@ namespace TruongMamNon.BackendApi.Data.Configurations
             builder.Property(x => x.TenThucPham).IsRequired().HasMaxLength(200);
             builder.Property(x => x.DonViTinh).IsRequired();
             builder.Property(x => x.TonKho).IsRequired();
-            builder.Property(x => x.HinhAnh).IsRequired(false);
             builder.Property(x => x.MaDanhMuc).IsRequired();
 
             builder.Property(x => x.NangLuong).IsRequired();

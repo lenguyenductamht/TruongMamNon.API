@@ -6,7 +6,6 @@
         public string TenThucPham { get; set; }
         public string DonViTinh { get; set; }
         public double TonKho { get; set; }
-        public string HinhAnh { get; set; }
         public int MaDanhMuc { get; set; }
 
         //Dinh dưỡng
@@ -18,8 +17,8 @@
 
         public DanhMucThucPham DanhMucThucPham { get; set; }
 
-        public List<ChiTietPhieuNhapThucPham> ChiTietPhieuNhapThucPhams { get; set; }
-        public List<ChiTietPhieuXuatThucPham> ChiTietPhieuXuatThucPhams { get; set; }
-        public List<MonAnThucPham> MonAnThucPhams { get; set; }
+        public virtual List<ChiTietPhieuNhapThucPham> ChiTietPhieuNhapThucPhams { get; set; }
+        public virtual List<ChiTietPhieuXuatThucPham> ChiTietPhieuXuatThucPhams { get; set; }
+        public virtual List<MonAnThucPham> MonAnThucPhams { get; set; }
     }
 }

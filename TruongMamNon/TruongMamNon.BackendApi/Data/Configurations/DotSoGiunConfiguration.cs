@@ -10,6 +10,7 @@ namespace TruongMamNon.BackendApi.Data.Configurations
         {
             builder.ToTable("DotSoGiuns");
             builder.HasKey(x => x.MaDotSoGiun);
+            builder.Property(x => x.TenDotSoGiun).IsRequired().HasMaxLength(200);
             builder.Property(x => x.NgaySoGiun).IsRequired();
             builder.Property(x => x.MaThuocSoGiun).IsRequired();
             builder.Property(x => x.MaNienHoc).IsRequired();

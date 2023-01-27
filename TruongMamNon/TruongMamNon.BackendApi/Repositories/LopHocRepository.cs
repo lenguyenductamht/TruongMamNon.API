@@ -44,7 +44,7 @@ namespace TruongMamNon.BackendApi.Repositories
 
         public async Task<List<LopHoc>> GetLopHocs()
         {
-            return await _context.LopHocs.ToListAsync();
+            return await _context.LopHocs.Include(x => x.KhoiLop).ToListAsync();
         }
 
         public async Task<List<LopHoc>> GetLopHocsByNienHoc(int maNienHoc)

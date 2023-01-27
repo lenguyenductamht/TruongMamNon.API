@@ -1,4 +1,5 @@
 ﻿using TruongMamNon.BackendApi.Data.Entities;
+using TruongMamNon.BackendApi.ViewModels;
 
 namespace TruongMamNon.BackendApi.Repositories
 {

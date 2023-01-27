@@ -47,6 +47,13 @@ namespace TruongMamNon.BackendApi.Controllers
             return Ok(_mapper.Map<List<QuocGiaVm>>(quocGias));
         }
 
+        [HttpGet("TrangThaiDiemDanhs")]
+        public async Task<IActionResult> GetTrangThaiDiemDanhs()
+        {
+            var trangThaiDiemDanhs = await _commonRepository.GetTrangThaiDiemDanhs();
+            return Ok(_mapper.Map<List<TrangThaiDiemDanhVm>>(trangThaiDiemDanhs));
+        }
+
         [HttpGet("TrangThaiHocs")]
         public async Task<IActionResult> GetTrangThaiHocs()
         {

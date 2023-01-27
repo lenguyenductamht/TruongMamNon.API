@@ -8,9 +8,9 @@ namespace TruongMamNon.BackendApi.Validators
     {
         public UpdateHocSinhRequestValidator(ICommonRepository commonRepository, IKhoiLopRepository khoiLopRepository, ILopHocRepository lopHocRepository)
         {
-            RuleFor(x => x.Ho).NotEmpty().WithMessage("Vui lòng nhập họ").MaximumLength(200).WithMessage("Họ không được vượt quá 200 ký tự");
+            RuleFor(x => x.Ho).NotEmpty().MaximumLength(200);
 
-            RuleFor(x => x.Ten).NotEmpty().WithMessage("Vui lòng nhập tên").MaximumLength(200).WithMessage("Tên không được vượt quá 200 ký tự");
+            RuleFor(x => x.Ten).NotEmpty().MaximumLength(200);
 
             RuleFor(x => x.MaGioiTinh).NotEmpty().Must(ma =>
             {
@@ -42,7 +42,7 @@ namespace TruongMamNon.BackendApi.Validators
             //    return false;
             //}).WithMessage("Vui lòng chọn lớp học hợp lệ");
 
-            RuleFor(x => x.NgayNhapHoc).NotEmpty().WithMessage("Vui lòng nhập ngày nhập học");
+            RuleFor(x => x.NgayNhapHoc).NotEmpty();
 
             RuleFor(x => x.MaTrangThaiHoc).NotEmpty().Must(ma =>
             {
@@ -53,6 +53,12 @@ namespace TruongMamNon.BackendApi.Validators
                 }
                 return false;
             }).WithMessage("Vui lòng chọn trạng thái học hợp lệ");
+
+            RuleFor(x => x.LyDoNghiHoc).MaximumLength(200);
+
+            RuleFor(x => x.NgaySinh).NotEmpty().LessThan(DateTime.Now);
+
+            RuleFor(x => x.NoiSinh).MaximumLength(200);
 
             RuleFor(x => x.MaDanToc).Must(ma =>
             {
@@ -84,9 +90,9 @@ namespace TruongMamNon.BackendApi.Validators
                 return false;
             }).WithMessage("Vui lòng chọn quốc tịch hợp lệ");
 
-            RuleFor(x => x.HoKhau).MaximumLength(200).WithMessage("Hộ khẩu không được vượt quá 200 ký tự");
+            RuleFor(x => x.HoKhau).MaximumLength(200);
 
-            RuleFor(x => x.DiaChi).MaximumLength(200).WithMessage("Địa chỉ không được vượt quá 200 ký tự");
+            RuleFor(x => x.DiaChi).MaximumLength(200);
 
             RuleFor(x => x.HoTenPhuHuynh).NotEmpty().MaximumLength(200);
 
@@ -96,7 +102,7 @@ namespace TruongMamNon.BackendApi.Validators
 
             RuleFor(x => x.NgheNghiepPhuHuynh).MaximumLength(200);
 
-            RuleFor(x => x.EmailPhuHuynh).MaximumLength(200);
+            RuleFor(x => x.EmailPhuHuynh).EmailAddress().MaximumLength(200);
 
             RuleFor(x => x.DiaChiPhuHuynh).MaximumLength(200);
         }

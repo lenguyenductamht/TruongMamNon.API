@@ -10,6 +10,7 @@ namespace TruongMamNon.BackendApi.Data.Configurations
         {
             builder.ToTable("DotTiemVaccines");
             builder.HasKey(x => x.MaDotTiemVaccine);
+            builder.Property(x => x.TenDotTiemVaccine).IsRequired().HasMaxLength(200);
             builder.Property(x => x.NgayTiemVaccine).IsRequired();
             builder.Property(x => x.MaVaccine).IsRequired();
             builder.Property(x => x.MaNienHoc).IsRequired();

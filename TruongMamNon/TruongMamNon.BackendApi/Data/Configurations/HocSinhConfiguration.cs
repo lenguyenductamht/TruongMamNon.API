@@ -18,10 +18,10 @@ namespace TruongMamNon.BackendApi.Data.Configurations
             builder.Property(x => x.MaLopHoc).IsRequired(false);
             builder.Property(x => x.NgayNhapHoc).IsRequired();
             builder.Property(x => x.MaTrangThaiHoc).IsRequired().HasMaxLength(1);
-            builder.Property(x => x.LyDoNghiHoc).IsRequired(false);
+            builder.Property(x => x.LyDoNghiHoc).IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.NgayCapNhat).IsRequired(false);
             builder.Property(x => x.NgaySinh).IsRequired();
-            builder.Property(x => x.NoiSinh).IsRequired(false);
+            builder.Property(x => x.NoiSinh).IsRequired(false).HasMaxLength(200);
             builder.Property(x => x.MaDanToc).IsRequired(false).HasMaxLength(3);
             builder.Property(x => x.MaTonGiao).IsRequired(false).HasMaxLength(3);
             builder.Property(x => x.MaQuocTich).IsRequired(false).HasMaxLength(3);

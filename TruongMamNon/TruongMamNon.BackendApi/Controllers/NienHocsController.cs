@@ -24,7 +24,7 @@ namespace TruongMamNon.BackendApi.Controllers
         public async Task<IActionResult> AddNienHoc([FromBody] AUNienHocRequest request)
         {
             var nienHoc = await _nienHocRepository.AddNienHoc(_mapper.Map<NienHoc>(request));
-            return CreatedAtAction(nameof(GetNienHocs), new { maNienHoc = nienHoc.MaNienHoc }, _mapper.Map<NienHocVm>(nienHoc));
+            return CreatedAtAction(nameof(GetNienHoc), new { maNienHoc = nienHoc.MaNienHoc }, _mapper.Map<NienHocVm>(nienHoc));
         }
 
         [HttpGet]

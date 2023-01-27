@@ -25,7 +25,6 @@
         public string Email { get; set; }
         public string HoKhau { get; set; }
         public string DiaChi { get; set; }
-        public string HinhAnh { get; set; }
 
         //Tai Khoan
 

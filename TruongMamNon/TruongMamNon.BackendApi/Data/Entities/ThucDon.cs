@@ -9,6 +9,6 @@
 
         public DanhMucThucDon DanhMucThucDon { get; set; }
 
-        public List<ThucDonMonAn> ThucDonMonAns { get; set; }
+        public virtual List<ThucDonMonAn> ThucDonMonAns { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace TruongMamNon.BackendApi.Data.Configurations
             builder.Property(x => x.MaGioiTinh).IsRequired().HasMaxLength(1);
             builder.Property(x => x.NgaySinh).IsRequired().HasMaxLength(200);
             builder.Property(x => x.NoiSinh).IsRequired(false).HasMaxLength(200);
-            builder.Property(x => x.CMND).IsRequired().HasMaxLength(200);
+            builder.Property(x => x.CMND).IsRequired().HasMaxLength(12);
             builder.Property(x => x.NgayCap).IsRequired(false);
             builder.Property(x => x.MaDanToc).IsRequired().HasMaxLength(3);
             builder.Property(x => x.MaTonGiao).IsRequired().HasMaxLength(3);
@@ -46,6 +46,8 @@ namespace TruongMamNon.BackendApi.Data.Configurations
             builder.HasOne(x => x.DanToc).WithMany(x => x.NhanSus).HasForeignKey(x => x.MaDanToc);
             builder.HasOne(x => x.TonGiao).WithMany(x => x.NhanSus).HasForeignKey(x => x.MaTonGiao);
             builder.HasOne(x => x.QuocTich).WithMany(x => x.NhanSus).HasForeignKey(x => x.MaQuocTich);
+            builder.HasOne(x => x.TrangThaiLamViec).WithMany(x => x.NhanSus).HasForeignKey(x => x.MaTrangThaiLamViec);
+            builder.HasOne(x => x.TrangThaiTaiKhoan).WithMany(x => x.NhanSus).HasForeignKey(x => x.MaTrangThaiTaiKhoan);
         }
     }
 }

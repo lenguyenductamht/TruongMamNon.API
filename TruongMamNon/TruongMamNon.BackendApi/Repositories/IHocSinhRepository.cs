@@ -12,6 +12,10 @@ namespace TruongMamNon.BackendApi.Repositories
 
         Task<List<HocSinh>> GetHocSinhs();
 
+        Task<List<HocSinh>> GetHocSinhsByKhoiLop(int maKhoiLop);
+
+        Task<List<HocSinh>> GetHocSinhsByLopHoc(int maLopHoc);
+
         Task<HocSinh> GetHocSinh(string maHocSinh);
 
         Task<HocSinh> UpdateHocSinh(string maHocSinh, HocSinh request);

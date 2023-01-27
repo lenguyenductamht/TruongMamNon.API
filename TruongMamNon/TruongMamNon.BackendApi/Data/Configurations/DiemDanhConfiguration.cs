@@ -12,9 +12,10 @@ namespace TruongMamNon.BackendApi.Data.Configurations
             builder.HasKey(x => x.MaDiemDanh);
             builder.Property(x => x.NgayDiemDanh).IsRequired();
             builder.Property(x => x.MaHocSinh).IsRequired();
-            builder.Property(x => x.TrangThai).IsRequired();
+            builder.Property(x => x.MaTrangThaiDiemDanh).IsRequired();
 
             builder.HasOne(x => x.HocSinh).WithMany(x => x.DiemDanhs).HasForeignKey(x => x.MaHocSinh);
+            builder.HasOne(x => x.TrangThaiDiemDanh).WithMany(x => x.DiemDanhs).HasForeignKey(x => x.MaTrangThaiDiemDanh);
         }
     }
 }

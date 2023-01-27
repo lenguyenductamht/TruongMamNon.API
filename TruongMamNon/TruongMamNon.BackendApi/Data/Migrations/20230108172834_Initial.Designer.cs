@@ -12,7 +12,7 @@ using TruongMamNon.BackendApi.Data.EF;
 namespace TruongMamNon.BackendApi.Data.Migrations
 {
     [DbContext(typeof(TruongMamNonDbContext))]
-    [Migration("20221222093650_Initial")]
+    [Migration("20230108172834_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,17 +35,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<decimal>("DonGia")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<long?>("PhieuXuatThucPhamMaPhieuXuatThucPham")
-                        .HasColumnType("bigint");
-
                     b.Property<double>("SoLuong")
                         .HasColumnType("float");
 
                     b.HasKey("MaPhieuNhapThucPham", "MaThucPham");
 
                     b.HasIndex("MaThucPham");
-
-                    b.HasIndex("PhieuXuatThucPhamMaPhieuXuatThucPham");
 
                     b.ToTable("ChiTietPhieuNhapThucPhams", (string)null);
                 });
@@ -82,6 +77,9 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("LoaiNhanSuMaLoaiNhanSu")
+                        .HasColumnType("int");
+
                     b.Property<int>("MaLoaiNhanSu")
                         .HasColumnType("int");
 
@@ -92,7 +90,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.HasKey("MaChucVu");
 
-                    b.HasIndex("MaLoaiNhanSu");
+                    b.HasIndex("LoaiNhanSuMaLoaiNhanSu");
 
                     b.ToTable("ChucVus", (string)null);
 
@@ -597,9 +595,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("MaDiemDanh"), 1L, 1);
 
+                    b.Property<string>("HocSinhMaHocSinh")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("MaHocSinh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("NgayDiemDanh")
                         .HasColumnType("datetime2");
@@ -610,7 +611,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.HasKey("MaDiemDanh");
 
-                    b.HasIndex("MaHocSinh");
+                    b.HasIndex("HocSinhMaHocSinh");
 
                     b.ToTable("DiemDanhs", (string)null);
                 });
@@ -632,11 +633,22 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<DateTimeOffset>("NgaySoGiun")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int?>("NienHocMaNienHoc")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TenDotSoGiun")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("ThuocSoGiunMaThuocSoGiun")
+                        .HasColumnType("int");
+
                     b.HasKey("MaDotSoGiun");
 
-                    b.HasIndex("MaNienHoc");
+                    b.HasIndex("NienHocMaNienHoc");
 
-                    b.HasIndex("MaThuocSoGiun");
+                    b.HasIndex("ThuocSoGiunMaThuocSoGiun");
 
                     b.ToTable("DotSoGiuns", (string)null);
                 });
@@ -658,11 +670,22 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<DateTimeOffset>("NgayTiemVaccine")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int?>("NienHocMaNienHoc")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TenDotTiemVaccine")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("VaccineMaVaccine")
+                        .HasColumnType("int");
+
                     b.HasKey("MaDotTiemVaccine");
 
-                    b.HasIndex("MaNienHoc");
+                    b.HasIndex("NienHocMaNienHoc");
 
-                    b.HasIndex("MaVaccine");
+                    b.HasIndex("VaccineMaVaccine");
 
                     b.ToTable("DotTiemVaccines", (string)null);
                 });
@@ -684,11 +707,22 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<DateTimeOffset>("NgayUongVitamin")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int?>("NienHocMaNienHoc")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TenDotUongVitamin")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("VitaminMaVitamin")
+                        .HasColumnType("int");
+
                     b.HasKey("MaDotUongVitamin");
 
-                    b.HasIndex("MaNienHoc");
+                    b.HasIndex("NienHocMaNienHoc");
 
-                    b.HasIndex("MaVitamin");
+                    b.HasIndex("VitaminMaVitamin");
 
                     b.ToTable("DotUongVitamins", (string)null);
                 });
@@ -701,9 +735,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<int>("MaLopHoc")
                         .HasColumnType("int");
 
+                    b.Property<int?>("LopHocMaLop")
+                        .HasColumnType("int");
+
                     b.HasKey("MaNhanSu", "MaLopHoc");
 
-                    b.HasIndex("MaLopHoc");
+                    b.HasIndex("LopHocMaLop");
 
                     b.ToTable("GiaoVienChuNhiems", (string)null);
                 });
@@ -747,20 +784,29 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CMNDPhuHuynh")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("DanTocMaDanToc")
+                        .HasColumnType("nvarchar(3)");
 
                     b.Property<string>("DiaChi")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("DiaChiPhuHuynh")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("EmailPhuHuynh")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GioiTinhMaGioiTinh")
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("HinhAnh")
                         .HasColumnType("nvarchar(max)");
@@ -776,13 +822,21 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.Property<string>("HoTenPhuHuynh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<int?>("KhoiLopMaKhoiLop")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LopHocMaLop")
+                        .HasColumnType("int");
+
                     b.Property<string>("LyDoNghiHoc")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("MaDanToc")
                         .HasMaxLength(3)
@@ -822,8 +876,9 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime?>("NamSinhPhuHuynh")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("NamSinhPhuHuynh")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
 
                     b.Property<DateTime?>("NgayCapNhat")
                         .HasColumnType("datetime2");
@@ -835,36 +890,51 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NgheNghiepPhuHuynh")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("NoiSinh")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("QuocTichMaQuocGia")
+                        .HasColumnType("nvarchar(3)");
 
                     b.Property<string>("SDTPhuHuynh")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Ten")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("TonGiaoMaTonGiao")
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<string>("TrangThaiHocMaTrangThai")
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<string>("TrangThaiTaiKhoanMaTrangThai")
+                        .HasColumnType("nvarchar(1)");
+
                     b.HasKey("MaHocSinh");
 
-                    b.HasIndex("MaDanToc");
+                    b.HasIndex("DanTocMaDanToc");
 
-                    b.HasIndex("MaGioiTinh");
+                    b.HasIndex("GioiTinhMaGioiTinh");
 
-                    b.HasIndex("MaKhoiLop");
+                    b.HasIndex("KhoiLopMaKhoiLop");
 
-                    b.HasIndex("MaLopHoc");
+                    b.HasIndex("LopHocMaLop");
 
-                    b.HasIndex("MaQuocTich");
+                    b.HasIndex("QuocTichMaQuocGia");
 
-                    b.HasIndex("MaTonGiao");
+                    b.HasIndex("TonGiaoMaTonGiao");
 
-                    b.HasIndex("MaTrangThaiHoc");
+                    b.HasIndex("TrangThaiHocMaTrangThai");
 
-                    b.HasIndex("MaTrangThaiTaiKhoan");
+                    b.HasIndex("TrangThaiTaiKhoanMaTrangThai");
 
                     b.ToTable("HocSinhs", (string)null);
 
@@ -892,8 +962,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                             MaTrangThaiHoc = "0",
                             MaTrangThaiTaiKhoan = "0",
                             MatKhau = "Client@123",
-                            NamSinhPhuHuynh = new DateTime(1968, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NgayCapNhat = new DateTime(2022, 12, 22, 16, 36, 49, 934, DateTimeKind.Local).AddTicks(4550),
+                            NamSinhPhuHuynh = "1968",
+                            NgayCapNhat = new DateTime(2023, 1, 9, 0, 28, 33, 956, DateTimeKind.Local).AddTicks(5367),
                             NgayNhapHoc = new DateTime(2022, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgaySinh = new DateTime(2001, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgheNghiepPhuHuynh = "Tự do",
@@ -944,6 +1014,9 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("HocSinhMaHocSinh")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("KetLuan")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -958,7 +1031,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.Property<string>("MaHocSinh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MatPhaiCoKinh")
                         .HasColumnType("int");
@@ -998,8 +1071,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.Property<string>("TenDotKham")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ThanKinhTamThan")
                         .IsRequired()
@@ -1019,7 +1092,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.HasKey("MaKhamSucKhoe");
 
-                    b.HasIndex("MaHocSinh");
+                    b.HasIndex("HocSinhMaHocSinh");
 
                     b.ToTable("KhamSucKhoes", (string)null);
                 });
@@ -1141,10 +1214,16 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<decimal>("HocPhi")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("KhoiLopMaKhoiLop")
+                        .HasColumnType("int");
+
                     b.Property<int>("MaKhoiLop")
                         .HasColumnType("int");
 
                     b.Property<int>("MaNienHoc")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NienHocMaNienHoc")
                         .HasColumnType("int");
 
                     b.Property<int>("SiSoToiDa")
@@ -1157,9 +1236,9 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.HasKey("MaLop");
 
-                    b.HasIndex("MaKhoiLop");
+                    b.HasIndex("KhoiLopMaKhoiLop");
 
-                    b.HasIndex("MaNienHoc");
+                    b.HasIndex("NienHocMaNienHoc");
 
                     b.ToTable("LopHocs", (string)null);
 
@@ -1293,8 +1372,14 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.Property<string>("CMND")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
+
+                    b.Property<int?>("ChucVuMaChucVu")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DanTocMaDanToc")
+                        .HasColumnType("nvarchar(3)");
 
                     b.Property<string>("DiaChi")
                         .HasMaxLength(200)
@@ -1303,6 +1388,9 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("GioiTinhMaGioiTinh")
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("HinhAnh")
                         .HasMaxLength(200)
@@ -1318,6 +1406,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("KhoiLopMaKhoiLop")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LoaiNhanSuMaLoaiNhanSu")
                         .HasColumnType("int");
 
                     b.Property<string>("LyDoThoiViec")
@@ -1387,14 +1481,23 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int?>("PhongBanMaPhongBan")
+                        .HasColumnType("int");
+
+                    b.Property<string>("QuocTichMaQuocGia")
+                        .HasColumnType("nvarchar(3)");
+
                     b.Property<string>("SoDienThoai")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Ten")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("TonGiaoMaTonGiao")
+                        .HasColumnType("nvarchar(3)");
 
                     b.Property<string>("TrangThaiLamViecMaTrangThai")
                         .HasColumnType("nvarchar(1)");
@@ -1404,21 +1507,21 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.HasKey("MaNhanSu");
 
-                    b.HasIndex("MaChucVu");
+                    b.HasIndex("ChucVuMaChucVu");
 
-                    b.HasIndex("MaDanToc");
+                    b.HasIndex("DanTocMaDanToc");
 
-                    b.HasIndex("MaGioiTinh");
+                    b.HasIndex("GioiTinhMaGioiTinh");
 
-                    b.HasIndex("MaKhoiLop");
+                    b.HasIndex("KhoiLopMaKhoiLop");
 
-                    b.HasIndex("MaLoaiNhanSu");
+                    b.HasIndex("LoaiNhanSuMaLoaiNhanSu");
 
-                    b.HasIndex("MaPhongBan");
+                    b.HasIndex("PhongBanMaPhongBan");
 
-                    b.HasIndex("MaQuocTich");
+                    b.HasIndex("QuocTichMaQuocGia");
 
-                    b.HasIndex("MaTonGiao");
+                    b.HasIndex("TonGiaoMaTonGiao");
 
                     b.HasIndex("TrangThaiLamViecMaTrangThai");
 
@@ -1448,7 +1551,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                             MaTrangThaiLamViec = "0",
                             MaTrangThaiTaiKhoan = "0",
                             MatKhau = "Admin@123",
-                            NgayCapNhat = new DateTime(2022, 12, 22, 16, 36, 49, 934, DateTimeKind.Local).AddTicks(4747),
+                            NgayCapNhat = new DateTime(2023, 1, 9, 0, 28, 33, 956, DateTimeKind.Local).AddTicks(5695),
                             NgaySinh = new DateTime(2001, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgayVaoTruong = new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NoiSinh = "Long An",
@@ -1613,10 +1716,13 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.Property<string>("MaNguoiNhap")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("NgayNhap")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("NguoiNhapMaNhanSu")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TrangThai")
                         .IsRequired()
@@ -1624,7 +1730,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.HasKey("MaPhieuNhapThucPham");
 
-                    b.HasIndex("MaNguoiNhap");
+                    b.HasIndex("NguoiNhapMaNhanSu");
 
                     b.ToTable("PhieuNhapThucPhams", (string)null);
                 });
@@ -1637,21 +1743,27 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("MaPhieuSoGiun"), 1L, 1);
 
+                    b.Property<int?>("DotSoGiunMaDotSoGiun")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HocSinhMaHocSinh")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("MaDotSoGiun")
                         .HasColumnType("int");
 
                     b.Property<string>("MaHocSinh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TrangThai")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MaPhieuSoGiun");
 
-                    b.HasIndex("MaDotSoGiun");
+                    b.HasIndex("DotSoGiunMaDotSoGiun");
 
-                    b.HasIndex("MaHocSinh");
+                    b.HasIndex("HocSinhMaHocSinh");
 
                     b.ToTable("PhieuSoGiuns", (string)null);
                 });
@@ -1664,21 +1776,27 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("MaPhieuTiemVaccine"), 1L, 1);
 
+                    b.Property<int?>("DotTiemVaccineMaDotTiemVaccine")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HocSinhMaHocSinh")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("MaDotTiemVaccine")
                         .HasColumnType("int");
 
                     b.Property<string>("MaHocSinh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TrangThai")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MaPhieuTiemVaccine");
 
-                    b.HasIndex("MaDotTiemVaccine");
+                    b.HasIndex("DotTiemVaccineMaDotTiemVaccine");
 
-                    b.HasIndex("MaHocSinh");
+                    b.HasIndex("HocSinhMaHocSinh");
 
                     b.ToTable("PhieuTiemVaccines", (string)null);
                 });
@@ -1691,21 +1809,27 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("MaPhieuUongVitamin"), 1L, 1);
 
+                    b.Property<int?>("DotUongVitaminMaDotUongVitamin")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HocSinhMaHocSinh")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("MaDotUongVitamin")
                         .HasColumnType("int");
 
                     b.Property<string>("MaHocSinh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TrangThai")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MaPhieuUongVitamin");
 
-                    b.HasIndex("MaDotUongVitamin");
+                    b.HasIndex("DotUongVitaminMaDotUongVitamin");
 
-                    b.HasIndex("MaHocSinh");
+                    b.HasIndex("HocSinhMaHocSinh");
 
                     b.ToTable("PhieuUongVitamins", (string)null);
                 });
@@ -1723,10 +1847,13 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.Property<string>("MaNguoiXuat")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("NgayXuat")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("NguoiXuatMaNhanSu")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TrangThai")
                         .IsRequired()
@@ -1734,7 +1861,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.HasKey("MaPhieuXuatThucPham");
 
-                    b.HasIndex("MaNguoiXuat");
+                    b.HasIndex("NguoiXuatMaNhanSu");
 
                     b.ToTable("PhieuXuatThucPhams", (string)null);
                 });
@@ -1966,6 +2093,9 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaThucDon"), 1L, 1);
 
+                    b.Property<int?>("DanhMucThucDonMaDanhMuc")
+                        .HasColumnType("int");
+
                     b.Property<int>("MaDanhMuc")
                         .HasColumnType("int");
 
@@ -1977,7 +2107,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.HasKey("MaThucDon");
 
-                    b.HasIndex("MaDanhMuc");
+                    b.HasIndex("DanhMucThucDonMaDanhMuc");
 
                     b.ToTable("ThucDons", (string)null);
 
@@ -1999,12 +2129,20 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<int>("MaMonAn")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MonAnMaMonAn")
+                        .HasColumnType("int");
+
                     b.Property<int>("SoLuong")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ThucDonMaThucDon")
                         .HasColumnType("int");
 
                     b.HasKey("MaThucDon", "MaMonAn");
 
-                    b.HasIndex("MaMonAn");
+                    b.HasIndex("MonAnMaMonAn");
+
+                    b.HasIndex("ThucDonMaThucDon");
 
                     b.ToTable("ThucDonMonAns", (string)null);
 
@@ -2040,6 +2178,9 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<double>("ChatDam")
                         .HasColumnType("float");
 
+                    b.Property<int?>("DanhMucThucPhamMaDanhMuc")
+                        .HasColumnType("int");
+
                     b.Property<string>("DonViTinh")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -2063,7 +2204,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     b.HasKey("MaThucPham");
 
-                    b.HasIndex("MaDanhMuc");
+                    b.HasIndex("DanhMucThucPhamMaDanhMuc");
 
                     b.ToTable("ThucPhams", (string)null);
 
@@ -2503,20 +2644,16 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.ChiTietPhieuNhapThucPham", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.PhieuNhapThucPham", "PhieuNhapThucPham")
-                        .WithMany("ChiTietPhieuNhapThucPhams")
+                        .WithMany()
                         .HasForeignKey("MaPhieuNhapThucPham")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.ThucPham", "ThucPham")
-                        .WithMany("ChiTietPhieuNhapThucPhams")
+                        .WithMany()
                         .HasForeignKey("MaThucPham")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TruongMamNon.BackendApi.Data.Entities.PhieuXuatThucPham", null)
-                        .WithMany("ChiTietPhieuNhapThucPhams")
-                        .HasForeignKey("PhieuXuatThucPhamMaPhieuXuatThucPham");
 
                     b.Navigation("PhieuNhapThucPham");
 
@@ -2526,13 +2663,13 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.ChiTietPhieuXuatThucPham", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.PhieuXuatThucPham", "PhieuXuatThucPham")
-                        .WithMany("ChiTietPhieuXuatThucPhams")
+                        .WithMany()
                         .HasForeignKey("MaPhieuXuatThucPham")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.ThucPham", "ThucPham")
-                        .WithMany("ChiTietPhieuXuatThucPhams")
+                        .WithMany()
                         .HasForeignKey("MaThucPham")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2545,10 +2682,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.ChucVu", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.LoaiNhanSu", "LoaiNhanSu")
-                        .WithMany("ChucVus")
-                        .HasForeignKey("MaLoaiNhanSu")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("LoaiNhanSuMaLoaiNhanSu");
 
                     b.Navigation("LoaiNhanSu");
                 });
@@ -2556,10 +2691,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DiemDanh", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.HocSinh", "HocSinh")
-                        .WithMany("DiemDanhs")
-                        .HasForeignKey("MaHocSinh")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("HocSinhMaHocSinh");
 
                     b.Navigation("HocSinh");
                 });
@@ -2567,16 +2700,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotSoGiun", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.NienHoc", "NienHoc")
-                        .WithMany("DotSoGiuns")
-                        .HasForeignKey("MaNienHoc")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("NienHocMaNienHoc");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.ThuocSoGiun", "ThuocSoGiun")
-                        .WithMany("DotSoGiuns")
-                        .HasForeignKey("MaThuocSoGiun")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ThuocSoGiunMaThuocSoGiun");
 
                     b.Navigation("NienHoc");
 
@@ -2586,16 +2715,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotTiemVaccine", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.NienHoc", "NienHoc")
-                        .WithMany("DotTiemVaccines")
-                        .HasForeignKey("MaNienHoc")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("NienHocMaNienHoc");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.Vaccine", "Vaccine")
-                        .WithMany("DotTiemVaccines")
-                        .HasForeignKey("MaVaccine")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("VaccineMaVaccine");
 
                     b.Navigation("NienHoc");
 
@@ -2605,16 +2730,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotUongVitamin", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.NienHoc", "NienHoc")
-                        .WithMany("DotUongVitamins")
-                        .HasForeignKey("MaNienHoc")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("NienHocMaNienHoc");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.Vitamin", "Vitamin")
-                        .WithMany("DotUongVitamins")
-                        .HasForeignKey("MaVitamin")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("VitaminMaVitamin");
 
                     b.Navigation("NienHoc");
 
@@ -2624,15 +2745,13 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.GiaoVienChuNhiem", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.LopHoc", "LopHoc")
-                        .WithMany("GiaoVienChuNhiems")
-                        .HasForeignKey("MaLopHoc")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("LopHocMaLop");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.NhanSu", "NhanSu")
-                        .WithMany("GiaoVienChuNhiems")
+                        .WithMany()
                         .HasForeignKey("MaNhanSu")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("LopHoc");
@@ -2643,44 +2762,36 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.HocSinh", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.DanToc", "DanToc")
-                        .WithMany("HocSinhs")
-                        .HasForeignKey("MaDanToc");
+                        .WithMany()
+                        .HasForeignKey("DanTocMaDanToc");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.GioiTinh", "GioiTinh")
-                        .WithMany("HocSinhs")
-                        .HasForeignKey("MaGioiTinh")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("GioiTinhMaGioiTinh");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.KhoiLop", "KhoiLop")
-                        .WithMany("HocSinhs")
-                        .HasForeignKey("MaKhoiLop")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("KhoiLopMaKhoiLop");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.LopHoc", "LopHoc")
-                        .WithMany("HocSinhs")
-                        .HasForeignKey("MaLopHoc");
+                        .WithMany()
+                        .HasForeignKey("LopHocMaLop");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.QuocGia", "QuocTich")
-                        .WithMany("HocSinhs")
-                        .HasForeignKey("MaQuocTich");
+                        .WithMany()
+                        .HasForeignKey("QuocTichMaQuocGia");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.TonGiao", "TonGiao")
-                        .WithMany("HocSinhs")
-                        .HasForeignKey("MaTonGiao");
+                        .WithMany()
+                        .HasForeignKey("TonGiaoMaTonGiao");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.TrangThaiHoc", "TrangThaiHoc")
-                        .WithMany("HocSinhs")
-                        .HasForeignKey("MaTrangThaiHoc")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("TrangThaiHocMaTrangThai");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.TrangThaiTaiKhoan", "TrangThaiTaiKhoan")
-                        .WithMany("HocSinhs")
-                        .HasForeignKey("MaTrangThaiTaiKhoan")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("TrangThaiTaiKhoanMaTrangThai");
 
                     b.Navigation("DanToc");
 
@@ -2702,10 +2813,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.KhamSucKhoe", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.HocSinh", "HocSinh")
-                        .WithMany("KhamSucKhoes")
-                        .HasForeignKey("MaHocSinh")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("HocSinhMaHocSinh");
 
                     b.Navigation("HocSinh");
                 });
@@ -2713,16 +2822,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.LopHoc", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.KhoiLop", "KhoiLop")
-                        .WithMany("LopHocs")
-                        .HasForeignKey("MaKhoiLop")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("KhoiLopMaKhoiLop");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.NienHoc", "NienHoc")
-                        .WithMany("LopHocs")
-                        .HasForeignKey("MaNienHoc")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("NienHocMaNienHoc");
 
                     b.Navigation("KhoiLop");
 
@@ -2732,13 +2837,13 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.MonAnThucPham", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.MonAn", "MonAn")
-                        .WithMany("MonAnThucPhams")
+                        .WithMany()
                         .HasForeignKey("MaMonAn")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.ThucPham", "ThucPham")
-                        .WithMany("MonAnThucPhams")
+                        .WithMany()
                         .HasForeignKey("MaThucPham")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2751,55 +2856,43 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.NhanSu", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.ChucVu", "ChucVu")
-                        .WithMany("NhanSus")
-                        .HasForeignKey("MaChucVu");
+                        .WithMany()
+                        .HasForeignKey("ChucVuMaChucVu");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.DanToc", "DanToc")
-                        .WithMany("NhanSus")
-                        .HasForeignKey("MaDanToc")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("DanTocMaDanToc");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.GioiTinh", "GioiTinh")
-                        .WithMany("NhanSus")
-                        .HasForeignKey("MaGioiTinh")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("GioiTinhMaGioiTinh");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.KhoiLop", "KhoiLop")
-                        .WithMany("NhanSus")
-                        .HasForeignKey("MaKhoiLop");
+                        .WithMany()
+                        .HasForeignKey("KhoiLopMaKhoiLop");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.LoaiNhanSu", "LoaiNhanSu")
-                        .WithMany("NhanSus")
-                        .HasForeignKey("MaLoaiNhanSu")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("LoaiNhanSuMaLoaiNhanSu");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.PhongBan", "PhongBan")
-                        .WithMany("NhanSus")
-                        .HasForeignKey("MaPhongBan")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("PhongBanMaPhongBan");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.QuocGia", "QuocTich")
-                        .WithMany("NhanSus")
-                        .HasForeignKey("MaQuocTich")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("QuocTichMaQuocGia");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.TonGiao", "TonGiao")
-                        .WithMany("NhanSus")
-                        .HasForeignKey("MaTonGiao")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("TonGiaoMaTonGiao");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.TrangThaiLamViec", "TrangThaiLamViec")
-                        .WithMany("NhanSus")
+                        .WithMany()
                         .HasForeignKey("TrangThaiLamViecMaTrangThai");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.TrangThaiTaiKhoan", "TrangThaiTaiKhoan")
-                        .WithMany("NhanSus")
+                        .WithMany()
                         .HasForeignKey("TrangThaiTaiKhoanMaTrangThai");
 
                     b.Navigation("ChucVu");
@@ -2826,13 +2919,13 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.NhanSuPhanQuyen", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.NhanSu", "NhanSu")
-                        .WithMany("NhanSuPhanQuyens")
+                        .WithMany()
                         .HasForeignKey("MaNhanSu")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.PhanQuyen", "PhanQuyen")
-                        .WithMany("NhanSuPhanQuyens")
+                        .WithMany()
                         .HasForeignKey("MaQuyen")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2845,10 +2938,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuNhapThucPham", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.NhanSu", "NguoiNhap")
-                        .WithMany("PhieuNhapThucPhams")
-                        .HasForeignKey("MaNguoiNhap")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("NguoiNhapMaNhanSu");
 
                     b.Navigation("NguoiNhap");
                 });
@@ -2856,16 +2947,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuSoGiun", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.DotSoGiun", "DotSoGiun")
-                        .WithMany("PhieuSoGiuns")
-                        .HasForeignKey("MaDotSoGiun")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("DotSoGiunMaDotSoGiun");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.HocSinh", "HocSinh")
-                        .WithMany("PhieuSoGiuns")
-                        .HasForeignKey("MaHocSinh")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("HocSinhMaHocSinh");
 
                     b.Navigation("DotSoGiun");
 
@@ -2875,16 +2962,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuTiemVaccine", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.DotTiemVaccine", "DotTiemVaccine")
-                        .WithMany("PhieuTiemVaccines")
-                        .HasForeignKey("MaDotTiemVaccine")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("DotTiemVaccineMaDotTiemVaccine");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.HocSinh", "HocSinh")
-                        .WithMany("PhieuTiemVaccines")
-                        .HasForeignKey("MaHocSinh")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("HocSinhMaHocSinh");
 
                     b.Navigation("DotTiemVaccine");
 
@@ -2894,16 +2977,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuUongVitamin", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.DotUongVitamin", "DotUongVitamin")
-                        .WithMany("PhieuUongVitamins")
-                        .HasForeignKey("MaDotUongVitamin")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("DotUongVitaminMaDotUongVitamin");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.HocSinh", "HocSinh")
-                        .WithMany("PhieuUongVitamins")
-                        .HasForeignKey("MaHocSinh")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("HocSinhMaHocSinh");
 
                     b.Navigation("DotUongVitamin");
 
@@ -2913,10 +2992,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuXuatThucPham", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.NhanSu", "NguoiXuat")
-                        .WithMany("PhieuXuatThucPhams")
-                        .HasForeignKey("MaNguoiXuat")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("NguoiXuatMaNhanSu");
 
                     b.Navigation("NguoiXuat");
                 });
@@ -2924,10 +3001,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.ThucDon", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.DanhMucThucDon", "DanhMucThucDon")
-                        .WithMany("ThucDons")
-                        .HasForeignKey("MaDanhMuc")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("DanhMucThucDonMaDanhMuc");
 
                     b.Navigation("DanhMucThucDon");
                 });
@@ -2935,16 +3010,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.ThucDonMonAn", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.MonAn", "MonAn")
-                        .WithMany("ThucDonMonAns")
-                        .HasForeignKey("MaMonAn")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("MonAnMaMonAn");
 
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.ThucDon", "ThucDon")
-                        .WithMany("ThucDonMonAns")
-                        .HasForeignKey("MaThucDon")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ThucDonMaThucDon");
 
                     b.Navigation("MonAn");
 
@@ -2954,203 +3025,10 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.ThucPham", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.DanhMucThucPham", "DanhMucThucPham")
-                        .WithMany("ThucPhams")
-                        .HasForeignKey("MaDanhMuc")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("DanhMucThucPhamMaDanhMuc");
 
                     b.Navigation("DanhMucThucPham");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.ChucVu", b =>
-                {
-                    b.Navigation("NhanSus");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DanhMucThucDon", b =>
-                {
-                    b.Navigation("ThucDons");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DanhMucThucPham", b =>
-                {
-                    b.Navigation("ThucPhams");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DanToc", b =>
-                {
-                    b.Navigation("HocSinhs");
-
-                    b.Navigation("NhanSus");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotSoGiun", b =>
-                {
-                    b.Navigation("PhieuSoGiuns");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotTiemVaccine", b =>
-                {
-                    b.Navigation("PhieuTiemVaccines");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotUongVitamin", b =>
-                {
-                    b.Navigation("PhieuUongVitamins");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.GioiTinh", b =>
-                {
-                    b.Navigation("HocSinhs");
-
-                    b.Navigation("NhanSus");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.HocSinh", b =>
-                {
-                    b.Navigation("DiemDanhs");
-
-                    b.Navigation("KhamSucKhoes");
-
-                    b.Navigation("PhieuSoGiuns");
-
-                    b.Navigation("PhieuTiemVaccines");
-
-                    b.Navigation("PhieuUongVitamins");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.KhoiLop", b =>
-                {
-                    b.Navigation("HocSinhs");
-
-                    b.Navigation("LopHocs");
-
-                    b.Navigation("NhanSus");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.LoaiNhanSu", b =>
-                {
-                    b.Navigation("ChucVus");
-
-                    b.Navigation("NhanSus");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.LopHoc", b =>
-                {
-                    b.Navigation("GiaoVienChuNhiems");
-
-                    b.Navigation("HocSinhs");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.MonAn", b =>
-                {
-                    b.Navigation("MonAnThucPhams");
-
-                    b.Navigation("ThucDonMonAns");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.NhanSu", b =>
-                {
-                    b.Navigation("GiaoVienChuNhiems");
-
-                    b.Navigation("NhanSuPhanQuyens");
-
-                    b.Navigation("PhieuNhapThucPhams");
-
-                    b.Navigation("PhieuXuatThucPhams");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.NienHoc", b =>
-                {
-                    b.Navigation("DotSoGiuns");
-
-                    b.Navigation("DotTiemVaccines");
-
-                    b.Navigation("DotUongVitamins");
-
-                    b.Navigation("LopHocs");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhanQuyen", b =>
-                {
-                    b.Navigation("NhanSuPhanQuyens");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuNhapThucPham", b =>
-                {
-                    b.Navigation("ChiTietPhieuNhapThucPhams");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuXuatThucPham", b =>
-                {
-                    b.Navigation("ChiTietPhieuNhapThucPhams");
-
-                    b.Navigation("ChiTietPhieuXuatThucPhams");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhongBan", b =>
-                {
-                    b.Navigation("NhanSus");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.QuocGia", b =>
-                {
-                    b.Navigation("HocSinhs");
-
-                    b.Navigation("NhanSus");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.ThucDon", b =>
-                {
-                    b.Navigation("ThucDonMonAns");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.ThucPham", b =>
-                {
-                    b.Navigation("ChiTietPhieuNhapThucPhams");
-
-                    b.Navigation("ChiTietPhieuXuatThucPhams");
-
-                    b.Navigation("MonAnThucPhams");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.ThuocSoGiun", b =>
-                {
-                    b.Navigation("DotSoGiuns");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.TonGiao", b =>
-                {
-                    b.Navigation("HocSinhs");
-
-                    b.Navigation("NhanSus");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.TrangThaiHoc", b =>
-                {
-                    b.Navigation("HocSinhs");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.TrangThaiLamViec", b =>
-                {
-                    b.Navigation("NhanSus");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.TrangThaiTaiKhoan", b =>
-                {
-                    b.Navigation("HocSinhs");
-
-                    b.Navigation("NhanSus");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.Vaccine", b =>
-                {
-                    b.Navigation("DotTiemVaccines");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.Vitamin", b =>
-                {
-                    b.Navigation("DotUongVitamins");
                 });
 #pragma warning restore 612, 618
         }

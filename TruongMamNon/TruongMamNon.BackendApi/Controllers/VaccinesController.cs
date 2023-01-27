@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TruongMamNon.BackendApi.Data.EF;
 using TruongMamNon.BackendApi.Data.Entities;
 using TruongMamNon.BackendApi.Helpers;
+using TruongMamNon.BackendApi.Repositories;
+using TruongMamNon.BackendApi.RequestModels;
 using TruongMamNon.BackendApi.ViewModels;
 
 namespace TruongMamNon.BackendApi.Controllers
@@ -11,103 +14,63 @@ namespace TruongMamNon.BackendApi.Controllers
     [ApiController]
     public class VaccinesController : ControllerBase
     {
-        private readonly TruongMamNonDbContext _context;
+        private readonly IVaccineRepository _vaccineRepository;
+        private readonly IMapper _mapper;
 
-        public VaccinesController(TruongMamNonDbContext context)
+        public VaccinesController(IVaccineRepository vaccineRepository, IMapper mapper)
         {
-            _context = context;
+            _vaccineRepository = vaccineRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostVaccine(CreateVaccineVm model)
+        public async Task<IActionResult> AddVaccine([FromBody] AUVaccineRequest request)
         {
-            var vaccine = new Vaccine()
-            {
-                TenVaccine = model.TenVaccine,
-                GhiChu = model.GhiChu,
-            };
-            _context.Vaccines.Add(vaccine);
-            var result = await _context.SaveChangesAsync();
-
-            if (result > 0)
-            {
-                return CreatedAtAction(nameof(GetByMa), new { ma = vaccine.MaVaccine }, model);
-            }
-            else
-            {
-                return BadRequest(new ApiBadRequestResponse("Tạo mới không thành công"));
-            }
+            var vaccine = await _vaccineRepository.AddVaccine(_mapper.Map<Vaccine>(request));
+            return CreatedAtAction(nameof(GetVaccine), new { maVaccine = vaccine.MaVaccine }, _mapper.Map<VaccineVm>(vaccine));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetVaccines()
         {
-            var vaccines = _context.Vaccines;
-            var vaccineVms = await vaccines.Select(x => new VaccineVm()
-            {
-                MaVaccine = x.MaVaccine,
-                TenVaccine = x.TenVaccine,
-                GhiChu = x.GhiChu,
-            }).ToListAsync();
-            return Ok(vaccineVms);
+            var vaccines = await _vaccineRepository.GetVaccines();
+            return Ok(_mapper.Map<List<VaccineVm>>(vaccines));
         }
 
-        [HttpGet("{ma}")]
-        public async Task<IActionResult> GetByMa(int ma)
+        [HttpGet("{maVaccine}"), ActionName("GetVaccine")]
+        public async Task<IActionResult> GetVaccine([FromRoute] int maVaccine)
         {
-            var vaccine = await _context.Vaccines.FindAsync(ma);
+            var vaccine = await _vaccineRepository.GetVaccine(maVaccine);
             if (vaccine == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-
-            VaccineVm vaccineVm = new VaccineVm()
             {
-                MaVaccine = vaccine.MaVaccine,
-                TenVaccine = vaccine.TenVaccine,
-                GhiChu = vaccine.GhiChu,
-            };
-
-            return Ok(vaccineVm);
-        }
-
-        [HttpPut("{ma}")]
-        public async Task<IActionResult> PutVaccine(int ma, [FromBody] CreateVaccineVm model)
-        {
-            var vaccine = await _context.Vaccines.FindAsync(ma);
-            if (vaccine == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-            vaccine.TenVaccine = model.TenVaccine;
-            vaccine.GhiChu = model.GhiChu;
-
-            _context.Vaccines.Update(vaccine);
-            var result = await _context.SaveChangesAsync();
-
-            if (result > 0)
-            {
-                return NoContent();
+                return NotFound();
             }
-            return BadRequest(new ApiBadRequestResponse("Cập nhật không thành công"));
+            return Ok(_mapper.Map<VaccineVm>(vaccine));
         }
 
-        [HttpDelete("{ma}")]
-        public async Task<IActionResult> DeleteVaccine(int ma)
+        [HttpPut("{maVaccine}")]
+        public async Task<IActionResult> UpdateVaccine([FromRoute] int maVaccine, [FromBody] AUVaccineRequest request)
         {
-            var vaccine = await _context.Vaccines.FindAsync(ma);
-            if (vaccine == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-
-            _context.Vaccines.Remove(vaccine);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
+            if (await _vaccineRepository.Exists(maVaccine))
             {
-                VaccineVm vaccineVm = new VaccineVm()
+                var vaccine = await _vaccineRepository.UpdateVaccine(maVaccine, _mapper.Map<Vaccine>(request));
+                if (vaccine != null)
                 {
-                    MaVaccine = vaccine.MaVaccine,
-                    TenVaccine = vaccine.TenVaccine,
-                    GhiChu = vaccine.GhiChu,
-                };
-                return Ok(vaccineVm);
+                    return Ok(_mapper.Map<VaccineVm>(vaccine));
+                }
             }
-            return BadRequest(new ApiBadRequestResponse("Xóa không thành công"));
+            return NotFound();
+        }
+
+        [HttpDelete("{maVaccine}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] int maVaccine)
+        {
+            if (await _vaccineRepository.Exists(maVaccine))
+            {
+                var vaccine = await _vaccineRepository.DeleteVaccine(maVaccine);
+                return Ok(_mapper.Map<VaccineVm>(vaccine));
+            }
+            return NotFound();
         }
     }
 }

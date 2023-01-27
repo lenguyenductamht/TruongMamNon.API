@@ -46,7 +46,17 @@ namespace TruongMamNon.BackendApi.Repositories
 
         public async Task<List<HocSinh>> GetHocSinhs()
         {
-            return await _context.HocSinhs.Include(nameof(GioiTinh)).Include(nameof(KhoiLop)).Include(nameof(LopHoc)).Include(nameof(DanToc)).Include(nameof(TonGiao)).Include(x=>x.QuocTich).Include(nameof(TrangThaiHoc)).Include(nameof(LopHoc)).OrderBy(x => x.Ten).ThenBy(x=>x.Ho).ToListAsync();
+            return await _context.HocSinhs.Include(x=>x.GioiTinh).Include(x=>x.KhoiLop).Include(x=>x.LopHoc).Include(x=>x.DanToc).Include(x=>x.TonGiao).Include(x=>x.QuocTich).Include(x=>x.TrangThaiHoc).OrderBy(x => x.Ten).ThenBy(x=>x.Ho).ToListAsync();
+        }
+
+        public async Task<List<HocSinh>> GetHocSinhsByKhoiLop(int maKhoiLop)
+        {
+            return await _context.HocSinhs.Where(x=>x.MaKhoiLop==maKhoiLop).Include(x => x.GioiTinh).Include(x => x.KhoiLop).Include(x => x.LopHoc).Include(x => x.TrangThaiHoc).OrderBy(x => x.Ten).ThenBy(x => x.Ho).ToListAsync();
+        }
+
+        public async Task<List<HocSinh>> GetHocSinhsByLopHoc(int maLopHoc)
+        {
+            return await _context.HocSinhs.Where(x=>x.MaLopHoc==maLopHoc).Include(x => x.GioiTinh).Include(x => x.KhoiLop).Include(x => x.LopHoc).Include(x => x.TrangThaiHoc).OrderBy(x => x.Ten).ThenBy(x => x.Ho).ToListAsync();
         }
 
         public async Task<HocSinh> UpdateHocSinh(string maHocSinh, HocSinh request)

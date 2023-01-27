@@ -10,6 +10,6 @@
 
         public NhanSu NguoiNhap { get; set; }
 
-        public List<ChiTietPhieuNhapThucPham> ChiTietPhieuNhapThucPhams { get; set; }
+        public virtual List<ChiTietPhieuNhapThucPham> ChiTietPhieuNhapThucPhams { get; set; }
     }
 }

@@ -47,10 +47,10 @@
         public TrangThaiHoc TrangThaiHoc { get; set; }
         public TrangThaiTaiKhoan TrangThaiTaiKhoan { get; set; }
 
-        public List<DiemDanh> DiemDanhs { get; set; }
-        public List<KhamSucKhoe> KhamSucKhoes { get; set; }
-        public List<PhieuSoGiun> PhieuSoGiuns { get; set; }
-        public List<PhieuTiemVaccine> PhieuTiemVaccines { get; set; }
-        public List<PhieuUongVitamin> PhieuUongVitamins { get; set; }
+        public virtual List<DiemDanh> DiemDanhs { get; set; }
+        public virtual List<KhamSucKhoe> KhamSucKhoes { get; set; }
+        public virtual List<PhieuSoGiun> PhieuSoGiuns { get; set; }
+        public virtual List<PhieuTiemVaccine> PhieuTiemVaccines { get; set; }
+        public virtual List<PhieuUongVitamin> PhieuUongVitamins { get; set; }
     }
 }

@@ -45,9 +45,9 @@
         public TrangThaiLamViec TrangThaiLamViec { get; set; }
         public TrangThaiTaiKhoan TrangThaiTaiKhoan { get; set; }
 
-        public List<NhanSuPhanQuyen> NhanSuPhanQuyens { get; set; }
-        public List<PhieuNhapThucPham> PhieuNhapThucPhams { get; set; }
-        public List<PhieuXuatThucPham> PhieuXuatThucPhams { get; set; }
-        public List<GiaoVienChuNhiem> GiaoVienChuNhiems { get; set; }
+        public virtual List<NhanSuPhanQuyen> NhanSuPhanQuyens { get; set; }
+        public virtual List<PhieuNhapThucPham> PhieuNhapThucPhams { get; set; }
+        public virtual List<PhieuXuatThucPham> PhieuXuatThucPhams { get; set; }
+        public virtual List<GiaoVienChuNhiem> GiaoVienChuNhiems { get; set; }
     }
 }

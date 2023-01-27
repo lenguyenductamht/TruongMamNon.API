@@ -6,7 +6,7 @@
         public string TenLoaiNhanSu { get; set; }
         public string GhiChu { get; set; }
 
-        public List<ChucVu> ChucVus { get; set; }
-        public List<NhanSu> NhanSus { get; set; }
+        public virtual List<ChucVu> ChucVus { get; set; }
+        public virtual List<NhanSu> NhanSus { get; set; }
     }
 }

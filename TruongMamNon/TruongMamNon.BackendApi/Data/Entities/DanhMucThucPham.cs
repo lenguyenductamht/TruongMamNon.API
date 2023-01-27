@@ -6,6 +6,6 @@
         public string TenDanhMuc { get; set; }
         public string GhiChu { get; set; }
 
-        public List<ThucPham> ThucPhams { get; set; }
+        public virtual List<ThucPham> ThucPhams { get; set; }
     }
 }

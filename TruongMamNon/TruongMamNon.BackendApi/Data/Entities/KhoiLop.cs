@@ -6,8 +6,8 @@
         public string TenKhoiLop { get; set; }
         public string GhiChu { get; set; }
 
-        public List<LopHoc> LopHocs { get; set; }
-        public List<HocSinh> HocSinhs { get; set; }
-        public List<NhanSu> NhanSus { get; set; }
+        public virtual List<LopHoc> LopHocs { get; set; }
+        public virtual List<HocSinh> HocSinhs { get; set; }
+        public virtual List<NhanSu> NhanSus { get; set; }
     }
 }

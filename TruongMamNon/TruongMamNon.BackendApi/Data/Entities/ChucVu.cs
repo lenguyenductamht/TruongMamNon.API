@@ -8,6 +8,7 @@
         public int MaLoaiNhanSu { get; set; }
 
         public LoaiNhanSu LoaiNhanSu { get; set; }
-        public List<NhanSu> NhanSus { get; set; }
+
+        public virtual List<NhanSu> NhanSus { get; set; }
     }
 }

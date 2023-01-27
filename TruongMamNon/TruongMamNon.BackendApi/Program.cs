@@ -33,8 +33,19 @@ builder.Services.AddScoped<IHocSinhRepository, HocSinhRepository>();
 builder.Services.AddScoped<IKhoiLopRepository, KhoiLopRepository>();
 builder.Services.AddScoped<ILopHocRepository, LopHocRepository>();
 builder.Services.AddScoped<ICommonRepository, CommonRepository>();
+builder.Services.AddScoped<ILoaiNhanSuRepository, LoaiNhanSuRepository>();
+builder.Services.AddScoped<IPhongBanRepository, PhongBanRepository>();
+builder.Services.AddScoped<INhanSuRepository, NhanSuRepository>();
+builder.Services.AddScoped<IVaccineRepository, VaccineRepository>();
+builder.Services.AddScoped<IDotTiemVaccineRepository, DotTiemVaccineRepository>();
+builder.Services.AddScoped<IPhieuTiemVaccineRepository, PhieuTiemVaccineRepository>();
+builder.Services.AddScoped<IDiemDanhRepository, DiemDanhRepository>();
+builder.Services.AddScoped<IDanhMucThucPhamRepository, DanhMucThucPhamRepository>();
+builder.Services.AddScoped<IThucPhamRepository, ThucPhamRepository>();
+builder.Services.AddScoped<IPhieuNhapThucPhamRepository, PhieuNhapThucPhamRepository>();
+builder.Services.AddScoped<IChiTietPhieuNhapThucPhamRepository, ChiTietPhieuNhapThucPhamRepository>();
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 

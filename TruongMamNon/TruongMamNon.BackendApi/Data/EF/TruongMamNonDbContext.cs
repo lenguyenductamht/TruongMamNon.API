@@ -51,6 +51,7 @@ namespace TruongMamNon.BackendApi.Data.EF
             modelBuilder.ApplyConfiguration(new DanTocConfiguration());
             modelBuilder.ApplyConfiguration(new TonGiaoConfiguration());
             modelBuilder.ApplyConfiguration(new QuocGiaConfiguration());
+            modelBuilder.ApplyConfiguration(new TrangThaiDiemDanhConfiguration());
             modelBuilder.ApplyConfiguration(new TrangThaiHocConfiguration());
             modelBuilder.ApplyConfiguration(new TrangThaiLamViecConfiguration());
             modelBuilder.ApplyConfiguration(new TrangThaiTaiKhoanConfiguration());
@@ -61,7 +62,7 @@ namespace TruongMamNon.BackendApi.Data.EF
 
         #region DbSet
 
-        public DbSet<ChiTietPhieuNhapThucPham> ChiTietDiChos { get; set; }
+        public DbSet<ChiTietPhieuNhapThucPham> ChiTietPhieuNhapThucPhams { get; set; }
         public DbSet<ChiTietPhieuXuatThucPham> ChiTietPhieuXuatThucPhams { get; set; }
         public DbSet<ChucVu> ChucVus { get; set; }
         public DbSet<DanToc> DanTocs { get; set; }
@@ -97,6 +98,7 @@ namespace TruongMamNon.BackendApi.Data.EF
         public DbSet<ThucDonMonAn> ThucDonMonAns { get; set; }
         public DbSet<ThucPham> ThucPhams { get; set; }
         public DbSet<ThuocSoGiun> ThuocSoGiuns { get; set; }
+        public DbSet<TrangThaiDiemDanh> TrangThaiDiemDanhs { get; set; }
         public DbSet<TrangThaiHoc> TrangThaiHocs { get; set; }
         public DbSet<TrangThaiLamViec> TrangThaiLamViecs { get; set; }
         public DbSet<TrangThaiTaiKhoan> TrangThaiTaiKhoans { get; set; }

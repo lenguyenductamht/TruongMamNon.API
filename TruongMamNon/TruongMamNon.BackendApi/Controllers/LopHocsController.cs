@@ -27,7 +27,7 @@ namespace TruongMamNon.BackendApi.Controllers
         public async Task<IActionResult> AddLopHoc([FromBody] AULopHocRequest request)
         {
             var lopHoc = await _lopHocRepository.AddLopHoc(_mapper.Map<LopHoc>(request));
-            return CreatedAtAction(nameof(GetLopHocs), new { maLopHoc = lopHoc.MaLop }, _mapper.Map<LopHocVm>(lopHoc));
+            return CreatedAtAction(nameof(GetLopHoc), new { maLopHoc = lopHoc.MaLop }, _mapper.Map<LopHocVm>(lopHoc));
         }
 
         [HttpGet]

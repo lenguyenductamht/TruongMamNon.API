@@ -12,6 +12,8 @@ namespace TruongMamNon.BackendApi.Repositories
 
         Task<List<QuocGia>> GetQuocGias();
 
+        Task<List<TrangThaiDiemDanh>> GetTrangThaiDiemDanhs();
+
         Task<List<TrangThaiHoc>> GetTrangThaiHocs();
 
         Task<List<TrangThaiLamViec>> GetTrangThaiLamViecs();

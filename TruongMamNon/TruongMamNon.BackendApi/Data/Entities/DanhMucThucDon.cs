@@ -13,6 +13,6 @@
         public double ChatBeo { get; set; }
         public double ChatBot { get; set; }
 
-        public List<ThucDon> ThucDons { get; set; }
+        public virtual List<ThucDon> ThucDons { get; set; }
     }
 }

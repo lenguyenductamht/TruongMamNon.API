@@ -7,6 +7,15 @@ namespace TruongMamNon.BackendApi.Data.Extensions
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<TrangThaiDiemDanh>().HasData(
+                new TrangThaiDiemDanh() { MaTrangThai = "1", TenTrangThai = "Vắng sáng có phép" },
+                new TrangThaiDiemDanh() { MaTrangThai = "2", TenTrangThai = "Vắng sáng không phép" },
+                new TrangThaiDiemDanh() { MaTrangThai = "3", TenTrangThai = "Vắng chiều có phép" },
+                new TrangThaiDiemDanh() { MaTrangThai = "4", TenTrangThai = "Vắng chiều không phép" },
+                new TrangThaiDiemDanh() { MaTrangThai = "5", TenTrangThai = "Vắng cả ngày có phép" },
+                new TrangThaiDiemDanh() { MaTrangThai = "6", TenTrangThai = "Vắng cả ngày không phép" }
+                );
+
             modelBuilder.Entity<TrangThaiHoc>().HasData(
                 new TrangThaiHoc() { MaTrangThai = "0", TenTrangThai = "Đang học" },
                 new TrangThaiHoc() { MaTrangThai = "1", TenTrangThai = "Đã nghỉ" });
@@ -190,7 +199,6 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                     TenThucPham = "Chôm chôm",
                     DonViTinh = "Kg",
                     TonKho = 0,
-                    HinhAnh = "",
                     MaDanhMuc = 4,
                     NangLuong = 72000,
                     ChatDam = 1500,
@@ -203,7 +211,6 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                     TenThucPham = "Đậu cô ve",
                     DonViTinh = "Kg",
                     TonKho = 0,
-                    HinhAnh = "",
                     MaDanhMuc = 4,
                     NangLuong = 73000,
                     ChatDam = 5000,
@@ -216,7 +223,6 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                     TenThucPham = "Thịt heo nạc",
                     DonViTinh = "Kg",
                     TonKho = 0,
-                    HinhAnh = "",
                     MaDanhMuc = 2,
                     NangLuong = 139000,
                     ChatDam = 19000,
@@ -229,7 +235,6 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                     TenThucPham = "Nhãn",
                     DonViTinh = "Kg",
                     TonKho = 0,
-                    HinhAnh = "",
                     MaDanhMuc = 4,
                     NangLuong = 48000,
                     ChatDam = 900,
