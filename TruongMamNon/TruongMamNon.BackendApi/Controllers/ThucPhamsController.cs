@@ -46,20 +46,6 @@ namespace TruongMamNon.BackendApi.Controllers
             return Ok(_mapper.Map<ThucPhamVm>(thucPham));
         }
 
-        [HttpPut("{maThucPham}/{soLuongTang}")]
-        public async Task<IActionResult> TangSoLuong([FromRoute] int maThucPham, double soLuongTang)
-        {
-            if (await _thucPhamRepository.Exists(maThucPham))
-            {
-                var thucPham = await _thucPhamRepository.TangSoLuong(maThucPham, soLuongTang);
-                if (thucPham != null)
-                {
-                    return Ok(_mapper.Map<ThucPhamVm>(thucPham));
-                }
-            }
-            return NotFound();
-        }
-
         [HttpPut("{maThucPham}")]
         public async Task<IActionResult> UpdateThucPham([FromRoute] int maThucPham, [FromBody] AUThucPhamRequest request)
         {
@@ -75,12 +61,40 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpDelete("{maThucPham}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] int maThucPham)
+        public async Task<IActionResult> DeleteThucPham([FromRoute] int maThucPham)
         {
             if (await _thucPhamRepository.Exists(maThucPham))
             {
                 var thucPham = await _thucPhamRepository.DeleteThucPham(maThucPham);
                 return Ok(_mapper.Map<ThucPhamVm>(thucPham));
+            }
+            return NotFound();
+        }
+
+        [HttpPut("{maThucPham}/TangSoLuong/{soLuongTang}")]
+        public async Task<IActionResult> TangSoLuong(int maThucPham, double soLuongTang)
+        {
+            if (await _thucPhamRepository.Exists(maThucPham))
+            {
+                var thucPham = await _thucPhamRepository.TangSoLuong(maThucPham, soLuongTang);
+                if (thucPham != null)
+                {
+                    return Ok(_mapper.Map<ThucPhamVm>(thucPham));
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPut("{maThucPham}/GiamSoLuong/{soLuongGiam}")]
+        public async Task<IActionResult> GiamSoLuong(int maThucPham, double soLuongGiam)
+        {
+            if (await _thucPhamRepository.Exists(maThucPham))
+            {
+                var thucPham = await _thucPhamRepository.GiamSoLuong(maThucPham, soLuongGiam);
+                if (thucPham != null)
+                {
+                    return Ok(_mapper.Map<ThucPhamVm>(thucPham));
+                }
             }
             return NotFound();
         }

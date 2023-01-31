@@ -70,7 +70,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpDelete("{maPhieuTiemVaccine}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] int maPhieuTiemVaccine)
+        public async Task<IActionResult> DeletePhieuTiemVaccine([FromRoute] int maPhieuTiemVaccine)
         {
             if (await _phieuTiemVaccineRepository.Exists(maPhieuTiemVaccine))
             {

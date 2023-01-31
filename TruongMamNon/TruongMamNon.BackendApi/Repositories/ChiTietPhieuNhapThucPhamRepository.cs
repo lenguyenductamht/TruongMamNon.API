@@ -42,9 +42,9 @@ namespace TruongMamNon.BackendApi.Repositories
             return await _context.ChiTietPhieuNhapThucPhams.FirstOrDefaultAsync(x => x.MaPhieuNhapThucPham == maPhieuNhapThucPham && x.MaThucPham == maThucPham);
         }
 
-        public async Task<List<ChiTietPhieuNhapThucPham>> GetChiTietPhieuNhapThucPhams()
+        public async Task<List<ChiTietPhieuNhapThucPham>> GetChiTietPhieuNhapThucPhamsByMaPhieuNhapThucPham(long maPhieuNhapThucPham)
         {
-            return await _context.ChiTietPhieuNhapThucPhams.ToListAsync();
+            return await _context.ChiTietPhieuNhapThucPhams.Where(x => x.MaPhieuNhapThucPham == maPhieuNhapThucPham).Include(x=>x.ThucPham).ToListAsync();
         }
 
         public async Task<ChiTietPhieuNhapThucPham> UpdateChiTietPhieuNhapThucPham(long maPhieuNhapThucPham, int maThucPham, ChiTietPhieuNhapThucPham request)

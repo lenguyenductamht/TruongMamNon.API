@@ -59,6 +59,18 @@ namespace TruongMamNon.BackendApi.Repositories
             return null;
         }
 
+        public async Task<ThucPham> GiamSoLuong(int maThucPham, double soLuongGiam)
+        {
+            var thucPham = await GetThucPham(maThucPham);
+            if (thucPham != null)
+            {
+                thucPham.TonKho -= soLuongGiam;
+                await _context.SaveChangesAsync();
+                return thucPham;
+            }
+            return null;
+        }
+
         public async Task<ThucPham> UpdateThucPham(int maThucPham, ThucPham request)
         {
             var thucPham = await GetThucPham(maThucPham);

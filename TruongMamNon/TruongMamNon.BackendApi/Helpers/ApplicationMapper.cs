@@ -56,12 +56,22 @@ namespace TruongMamNon.BackendApi.Helpers
 
             CreateMap<ThucPham, ThucPhamVm>().ReverseMap();
             CreateMap<ThucPham, AUThucPhamRequest>().ReverseMap();
-            //CreateMap<ThucPham, TangThucPhamRequest>().ReverseMap();
 
             CreateMap<PhieuNhapThucPham, PhieuNhapThucPhamVm>().ReverseMap();
             CreateMap<PhieuNhapThucPham, AddPhieuNhapThucPhamRequest>().ReverseMap();
             CreateMap<PhieuNhapThucPham, UpdatePhieuNhapThucPhamRequest>().ReverseMap();
 
+            CreateMap<ChiTietPhieuNhapThucPham, ChiTietPhieuNhapThucPhamVm>().ReverseMap();
+            CreateMap<ChiTietPhieuNhapThucPham, AddChiTietPhieuNhapThucPhamRequest>().ReverseMap();
+            CreateMap<ChiTietPhieuNhapThucPham, UpdateChiTietPhieuNhapThucPhamRequest>().ReverseMap();
+
+            CreateMap<PhieuXuatThucPham, PhieuXuatThucPhamVm>().ReverseMap();
+            CreateMap<PhieuXuatThucPham, AddPhieuXuatThucPhamRequest>().ReverseMap();
+            CreateMap<PhieuXuatThucPham, UpdatePhieuXuatThucPhamRequest>().ReverseMap();
+
+            CreateMap<ChiTietPhieuXuatThucPham, ChiTietPhieuXuatThucPhamVm>().ReverseMap();
+            CreateMap<ChiTietPhieuXuatThucPham, AddChiTietPhieuXuatThucPhamRequest>().ReverseMap();
+            CreateMap<ChiTietPhieuXuatThucPham, UpdateChiTietPhieuXuatThucPhamRequest>().ReverseMap();
 
             CreateMap<ChucVu, ChucVuVm>().ReverseMap();
             CreateMap<DanhMucThucDon, DanhMucThucDonVm>().ReverseMap();

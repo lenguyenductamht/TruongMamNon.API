@@ -10,7 +10,7 @@ namespace TruongMamNon.BackendApi.Repositories
 
         Task<bool> Exists(long maPhieuNhapThucPham, int maThucPham);
 
-        Task<List<ChiTietPhieuNhapThucPham>> GetChiTietPhieuNhapThucPhams();
+        Task<List<ChiTietPhieuNhapThucPham>> GetChiTietPhieuNhapThucPhamsByMaPhieuNhapThucPham(long maPhieuNhapThucPham);
 
         Task<ChiTietPhieuNhapThucPham> GetChiTietPhieuNhapThucPham(long maPhieuNhapThucPham, int maThucPham);
 

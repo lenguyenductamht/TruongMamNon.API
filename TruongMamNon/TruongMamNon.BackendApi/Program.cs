@@ -44,6 +44,8 @@ builder.Services.AddScoped<IDanhMucThucPhamRepository, DanhMucThucPhamRepository
 builder.Services.AddScoped<IThucPhamRepository, ThucPhamRepository>();
 builder.Services.AddScoped<IPhieuNhapThucPhamRepository, PhieuNhapThucPhamRepository>();
 builder.Services.AddScoped<IChiTietPhieuNhapThucPhamRepository, ChiTietPhieuNhapThucPhamRepository>();
+builder.Services.AddScoped<IPhieuXuatThucPhamRepository, PhieuXuatThucPhamRepository>();
+builder.Services.AddScoped<IChiTietPhieuXuatThucPhamRepository, ChiTietPhieuXuatThucPhamRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

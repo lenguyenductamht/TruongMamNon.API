@@ -88,7 +88,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpDelete("{maHocSinh}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] string maHocSinh)
+        public async Task<IActionResult> DeleteHocSinh([FromRoute] string maHocSinh)
         {
             if (await _hocSinhRepository.Exists(maHocSinh))
             {

@@ -77,7 +77,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpDelete("{maLopHoc}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] int maLopHoc)
+        public async Task<IActionResult> DeleteLopHoc([FromRoute] int maLopHoc)
         {
             if (await _lopHocRepository.Exists(maLopHoc))
             {

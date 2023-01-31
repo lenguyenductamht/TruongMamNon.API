@@ -63,7 +63,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpDelete("{maPhongBan}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] int maPhongBan)
+        public async Task<IActionResult> DeletePhongBan([FromRoute] int maPhongBan)
         {
             if (await _phongBanRepository.Exists(maPhongBan))
             {

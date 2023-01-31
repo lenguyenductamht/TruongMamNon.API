@@ -17,5 +17,6 @@ namespace TruongMamNon.BackendApi.Repositories
         Task<ThucPham> UpdateThucPham(int maThucPham, ThucPham request);
 
         Task<ThucPham> TangSoLuong(int maThucPham, double soLuongTang);
+        Task<ThucPham> GiamSoLuong(int maThucPham, double soLuongGiam);
     }
 }

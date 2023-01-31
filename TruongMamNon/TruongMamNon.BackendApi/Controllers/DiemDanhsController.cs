@@ -75,7 +75,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpDelete("{maDiemDanh}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] int maDiemDanh)
+        public async Task<IActionResult> DeleteDiemDanh([FromRoute] int maDiemDanh)
         {
             if (await _diemDanhRepository.Exists(maDiemDanh))
             {
