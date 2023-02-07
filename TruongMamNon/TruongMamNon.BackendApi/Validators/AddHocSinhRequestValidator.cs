@@ -8,8 +8,6 @@ namespace TruongMamNon.BackendApi.Validators
     {
         public AddHocSinhRequestValidator(ICommonRepository commonRepository, IKhoiLopRepository khoiLopRepository, ILopHocRepository lopHocRepository)
         {
-            RuleFor(x => x.MaHocSinh).NotEmpty();
-
             RuleFor(x => x.Ho).NotEmpty().MaximumLength(200);
 
             RuleFor(x => x.Ten).NotEmpty().MaximumLength(200);
@@ -116,7 +114,7 @@ namespace TruongMamNon.BackendApi.Validators
 
             RuleFor(x => x.NgheNghiepPhuHuynh).MaximumLength(200);
 
-            RuleFor(x => x.EmailPhuHuynh).EmailAddress().MaximumLength(200);
+            //RuleFor(x => x.EmailPhuHuynh).EmailAddress().MaximumLength(200);
 
             RuleFor(x => x.DiaChiPhuHuynh).MaximumLength(200);
         }

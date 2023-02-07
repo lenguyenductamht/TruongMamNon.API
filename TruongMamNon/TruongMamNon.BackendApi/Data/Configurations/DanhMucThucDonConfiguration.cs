@@ -13,10 +13,6 @@ namespace TruongMamNon.BackendApi.Data.Configurations
             builder.Property(x => x.TenDanhMuc).IsRequired().HasMaxLength(200);
             builder.Property(x => x.GhiChu).IsRequired(false);
             builder.Property(x => x.ThoiGian).IsRequired();
-            builder.Property(x => x.NangLuong).IsRequired();
-            builder.Property(x => x.ChatDam).IsRequired();
-            builder.Property(x => x.ChatBeo).IsRequired();
-            builder.Property(x => x.ChatBot).IsRequired();
         }
     }
 }

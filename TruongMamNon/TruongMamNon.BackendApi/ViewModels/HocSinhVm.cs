@@ -4,7 +4,7 @@ namespace TruongMamNon.BackendApi.ViewModels
 {
     public class HocSinhVm
     {
-        public string MaHocSinh { get; set; }
+        public long MaHocSinh { get; set; }
         public string Ho { get; set; }
         public string Ten { get; set; }
         public string MaGioiTinh { get; set; }

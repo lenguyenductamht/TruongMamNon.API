@@ -46,6 +46,21 @@ builder.Services.AddScoped<IPhieuNhapThucPhamRepository, PhieuNhapThucPhamReposi
 builder.Services.AddScoped<IChiTietPhieuNhapThucPhamRepository, ChiTietPhieuNhapThucPhamRepository>();
 builder.Services.AddScoped<IPhieuXuatThucPhamRepository, PhieuXuatThucPhamRepository>();
 builder.Services.AddScoped<IChiTietPhieuXuatThucPhamRepository, ChiTietPhieuXuatThucPhamRepository>();
+builder.Services.AddScoped<IChucVuRepository, ChucVuRepository>();
+
+builder.Services.AddScoped<IThuocSoGiunRepository, ThuocSoGiunRepository>();
+builder.Services.AddScoped<IVitaminRepository, VitaminRepository>();
+builder.Services.AddScoped<IDotSoGiunRepository, DotSoGiunRepository>();
+builder.Services.AddScoped<IDotUongVitaminRepository, DotUongVitaminRepository>();
+builder.Services.AddScoped<IDotKhamSucKhoeRepository, DotKhamSucKhoeRepository>();
+builder.Services.AddScoped<IPhieuSoGiunRepository, PhieuSoGiunRepository>();
+builder.Services.AddScoped<IPhieuUongVitaminRepository, PhieuUongVitaminRepository>();
+builder.Services.AddScoped<IPhieuKhamSucKhoeRepository, PhieuKhamSucKhoeRepository>();
+builder.Services.AddScoped<IDanhMucThucDonRepository, DanhMucThucDonRepository>();
+builder.Services.AddScoped<IMonAnRepository, MonAnRepository>();
+builder.Services.AddScoped<IMonAnThucPhamRepository, MonAnThucPhamRepository>();
+builder.Services.AddScoped<IThucDonRepository, ThucDonRepository>();
+builder.Services.AddScoped<IThucDonMonAnRepository, ThucDonMonAnRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

@@ -13,5 +13,6 @@
         public virtual List<DotSoGiun> DotSoGiuns { get; set; }
         public virtual List<DotTiemVaccine> DotTiemVaccines { get; set; }
         public virtual List<DotUongVitamin> DotUongVitamins { get; set; }
+        public virtual List<DotKhamSucKhoe> DotKhamSucKhoes { get; set; }
     }
 }

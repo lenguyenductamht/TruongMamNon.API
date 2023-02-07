@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TruongMamNon.BackendApi.Data.EF;
 using TruongMamNon.BackendApi.Data.Entities;
 using TruongMamNon.BackendApi.Helpers;
+using TruongMamNon.BackendApi.Repositories;
+using TruongMamNon.BackendApi.RequestModels;
 using TruongMamNon.BackendApi.ViewModels;
 
 namespace TruongMamNon.BackendApi.Controllers
@@ -11,103 +14,63 @@ namespace TruongMamNon.BackendApi.Controllers
     [ApiController]
     public class VitaminsController : ControllerBase
     {
-        private readonly TruongMamNonDbContext _context;
+        private readonly IVitaminRepository _vitaminRepository;
+        private readonly IMapper _mapper;
 
-        public VitaminsController(TruongMamNonDbContext context)
+        public VitaminsController(IVitaminRepository vitaminRepository, IMapper mapper)
         {
-            _context = context;
+            _vitaminRepository = vitaminRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostVitamin(CreateVitaminVm model)
+        public async Task<IActionResult> AddVitamin([FromBody] AUVitaminRequest request)
         {
-            var vitamin = new Vitamin()
-            {
-                TenVitamin = model.TenVitamin,
-                GhiChu = model.GhiChu,
-            };
-            _context.Vitamins.Add(vitamin);
-            var result = await _context.SaveChangesAsync();
-
-            if (result > 0)
-            {
-                return CreatedAtAction(nameof(GetByMa), new { ma = vitamin.MaVitamin }, model);
-            }
-            else
-            {
-                return BadRequest(new ApiBadRequestResponse("Tạo mới không thành công"));
-            }
+            var vitamin = await _vitaminRepository.AddVitamin(_mapper.Map<Vitamin>(request));
+            return CreatedAtAction(nameof(GetVitamin), new { maVitamin = vitamin.MaVitamin }, _mapper.Map<VitaminVm>(vitamin));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetVitamins()
         {
-            var vitamins = _context.Vitamins;
-            var vitaminVms = await vitamins.Select(x => new VitaminVm()
-            {
-                MaVitamin = x.MaVitamin,
-                TenVitamin = x.TenVitamin,
-                GhiChu = x.GhiChu,
-            }).ToListAsync();
-            return Ok(vitaminVms);
+            var vitamins = await _vitaminRepository.GetVitamins();
+            return Ok(_mapper.Map<List<VitaminVm>>(vitamins));
         }
 
-        [HttpGet("{ma}")]
-        public async Task<IActionResult> GetByMa(int ma)
+        [HttpGet("{maVitamin}"), ActionName("GetVitamin")]
+        public async Task<IActionResult> GetVitamin([FromRoute] int maVitamin)
         {
-            var vitamin = await _context.Vitamins.FindAsync(ma);
+            var vitamin = await _vitaminRepository.GetVitamin(maVitamin);
             if (vitamin == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-
-            VitaminVm vitaminVm = new VitaminVm()
             {
-                MaVitamin = vitamin.MaVitamin,
-                TenVitamin = vitamin.TenVitamin,
-                GhiChu = vitamin.GhiChu,
-            };
-
-            return Ok(vitaminVm);
-        }
-
-        [HttpPut("{ma}")]
-        public async Task<IActionResult> PutVitamin(int ma, [FromBody] CreateVitaminVm model)
-        {
-            var vitamin = await _context.Vitamins.FindAsync(ma);
-            if (vitamin == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-            vitamin.TenVitamin = model.TenVitamin;
-            vitamin.GhiChu = model.GhiChu;
-
-            _context.Vitamins.Update(vitamin);
-            var result = await _context.SaveChangesAsync();
-
-            if (result > 0)
-            {
-                return NoContent();
+                return NotFound();
             }
-            return BadRequest(new ApiBadRequestResponse("Cập nhật không thành công"));
+            return Ok(_mapper.Map<VitaminVm>(vitamin));
         }
 
-        [HttpDelete("{ma}")]
-        public async Task<IActionResult> DeleteVitamin(int ma)
+        [HttpPut("{maVitamin}")]
+        public async Task<IActionResult> UpdateVitamin([FromRoute] int maVitamin, [FromBody] AUVitaminRequest request)
         {
-            var vitamin = await _context.Vitamins.FindAsync(ma);
-            if (vitamin == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-
-            _context.Vitamins.Remove(vitamin);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
+            if (await _vitaminRepository.Exists(maVitamin))
             {
-                VitaminVm vitaminVm = new VitaminVm()
+                var vitamin = await _vitaminRepository.UpdateVitamin(maVitamin, _mapper.Map<Vitamin>(request));
+                if (vitamin != null)
                 {
-                    MaVitamin = vitamin.MaVitamin,
-                    TenVitamin = vitamin.TenVitamin,
-                    GhiChu = vitamin.GhiChu,
-                };
-                return Ok(vitaminVm);
+                    return Ok(_mapper.Map<VitaminVm>(vitamin));
+                }
             }
-            return BadRequest(new ApiBadRequestResponse("Xóa không thành công"));
+            return NotFound();
+        }
+
+        [HttpDelete("{maVitamin}")]
+        public async Task<IActionResult> DeleteVitamin([FromRoute] int maVitamin)
+        {
+            if (await _vitaminRepository.Exists(maVitamin))
+            {
+                var vitamin = await _vitaminRepository.DeleteVitamin(maVitamin);
+                return Ok(_mapper.Map<VitaminVm>(vitamin));
+            }
+            return NotFound();
         }
     }
 }

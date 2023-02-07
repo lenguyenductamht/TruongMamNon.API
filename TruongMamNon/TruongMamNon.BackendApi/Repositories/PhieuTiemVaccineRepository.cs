@@ -20,7 +20,7 @@ namespace TruongMamNon.BackendApi.Repositories
             return phieuTiemVaccine.Entity;
         }
 
-        public async Task<PhieuTiemVaccine> DeletePhieuTiemVaccine(int maPhieuTiemVaccine)
+        public async Task<PhieuTiemVaccine> DeletePhieuTiemVaccine(long maPhieuTiemVaccine)
         {
             var phieuTiemVaccine = await GetPhieuTiemVaccine(maPhieuTiemVaccine);
             if (phieuTiemVaccine != null)
@@ -32,19 +32,19 @@ namespace TruongMamNon.BackendApi.Repositories
             return null;
         }
 
-        public async Task<bool> Exists(int maPhieuTiemVaccine)
+        public async Task<bool> Exists(long maPhieuTiemVaccine)
         {
             return await _context.PhieuTiemVaccines.AnyAsync(x => x.MaPhieuTiemVaccine == maPhieuTiemVaccine);
         }
 
-        public async Task<PhieuTiemVaccine> GetPhieuTiemVaccine(int maPhieuTiemVaccine)
+        public async Task<PhieuTiemVaccine> GetPhieuTiemVaccine(long maPhieuTiemVaccine)
         {
             return await _context.PhieuTiemVaccines.FirstOrDefaultAsync(x => x.MaPhieuTiemVaccine == maPhieuTiemVaccine);
         }
 
         public async Task<List<PhieuTiemVaccine>> GetPhieuTiemVaccines()
         {
-            return await _context.PhieuTiemVaccines.Include(x=>x.DotTiemVaccine).Include(nameof(HocSinh)).OrderByDescending(x => x.MaPhieuTiemVaccine).ToListAsync();
+            return await _context.PhieuTiemVaccines.Include(x => x.DotTiemVaccine).Include(nameof(HocSinh)).OrderByDescending(x => x.MaPhieuTiemVaccine).ToListAsync();
         }
 
         public async Task<List<PhieuTiemVaccine>> GetPhieuTiemVaccinesByNienHoc(int maNienHoc)
@@ -52,7 +52,7 @@ namespace TruongMamNon.BackendApi.Repositories
             return await _context.PhieuTiemVaccines.Where(x => x.DotTiemVaccine.MaNienHoc == maNienHoc).Include(nameof(DotTiemVaccine)).Include(nameof(HocSinh)).OrderByDescending(x => x.MaPhieuTiemVaccine).ToListAsync();
         }
 
-        public async Task<PhieuTiemVaccine> UpdatePhieuTiemVaccine(int maPhieuTiemVaccine, PhieuTiemVaccine request)
+        public async Task<PhieuTiemVaccine> UpdatePhieuTiemVaccine(long maPhieuTiemVaccine, PhieuTiemVaccine request)
         {
             var phieuTiemVaccine = await GetPhieuTiemVaccine(maPhieuTiemVaccine);
             if (phieuTiemVaccine != null)

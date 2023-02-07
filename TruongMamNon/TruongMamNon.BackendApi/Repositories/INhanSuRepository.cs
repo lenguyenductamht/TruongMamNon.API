@@ -6,14 +6,14 @@ namespace TruongMamNon.BackendApi.Repositories
     {
         Task<NhanSu> AddNhanSu(NhanSu request);
 
-        Task<NhanSu> DeleteNhanSu(string maNhanSu);
+        Task<NhanSu> DeleteNhanSu(long maNhanSu);
 
-        Task<bool> Exists(string maNhanSu);
+        Task<bool> Exists(long maNhanSu);
 
         Task<List<NhanSu>> GetNhanSus();
 
-        Task<NhanSu> GetNhanSu(string maNhanSu);
+        Task<NhanSu> GetNhanSu(long maNhanSu);
 
-        Task<NhanSu> UpdateNhanSu(string maNhanSu, NhanSu request);
+        Task<NhanSu> UpdateNhanSu(long maNhanSu, NhanSu request);
     }
 }

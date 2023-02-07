@@ -22,7 +22,7 @@ namespace TruongMamNon.BackendApi.Repositories
             return hocSinh.Entity;
         }
 
-        public async Task<HocSinh> DeleteHocSinh(string maHocSinh)
+        public async Task<HocSinh> DeleteHocSinh(long maHocSinh)
         {
             var hocSinh = await GetHocSinh(maHocSinh);
             if (hocSinh != null)
@@ -34,32 +34,32 @@ namespace TruongMamNon.BackendApi.Repositories
             return null;
         }
 
-        public async Task<bool> Exists(string maHocSinh)
+        public async Task<bool> Exists(long maHocSinh)
         {
             return await _context.HocSinhs.AnyAsync(x => x.MaHocSinh == maHocSinh);
         }
 
-        public async Task<HocSinh> GetHocSinh(string maHocSinh)
+        public async Task<HocSinh> GetHocSinh(long maHocSinh)
         {
             return await _context.HocSinhs.FirstOrDefaultAsync(x => x.MaHocSinh == maHocSinh);
         }
 
         public async Task<List<HocSinh>> GetHocSinhs()
         {
-            return await _context.HocSinhs.Include(x=>x.GioiTinh).Include(x=>x.KhoiLop).Include(x=>x.LopHoc).Include(x=>x.DanToc).Include(x=>x.TonGiao).Include(x=>x.QuocTich).Include(x=>x.TrangThaiHoc).OrderBy(x => x.Ten).ThenBy(x=>x.Ho).ToListAsync();
+            return await _context.HocSinhs.Include(x => x.GioiTinh).Include(x => x.KhoiLop).Include(x => x.LopHoc).Include(x => x.DanToc).Include(x => x.TonGiao).Include(x => x.QuocTich).Include(x => x.TrangThaiHoc).OrderBy(x => x.Ten).ThenBy(x => x.Ho).ToListAsync();
         }
 
         public async Task<List<HocSinh>> GetHocSinhsByKhoiLop(int maKhoiLop)
         {
-            return await _context.HocSinhs.Where(x=>x.MaKhoiLop==maKhoiLop).Include(x => x.GioiTinh).Include(x => x.KhoiLop).Include(x => x.LopHoc).Include(x => x.TrangThaiHoc).OrderBy(x => x.Ten).ThenBy(x => x.Ho).ToListAsync();
+            return await _context.HocSinhs.Where(x => x.MaKhoiLop == maKhoiLop).Include(x => x.GioiTinh).Include(x => x.KhoiLop).Include(x => x.LopHoc).Include(x => x.TrangThaiHoc).OrderBy(x => x.Ten).ThenBy(x => x.Ho).ToListAsync();
         }
 
         public async Task<List<HocSinh>> GetHocSinhsByLopHoc(int maLopHoc)
         {
-            return await _context.HocSinhs.Where(x=>x.MaLopHoc==maLopHoc).Include(x => x.GioiTinh).Include(x => x.KhoiLop).Include(x => x.LopHoc).Include(x => x.TrangThaiHoc).OrderBy(x => x.Ten).ThenBy(x => x.Ho).ToListAsync();
+            return await _context.HocSinhs.Where(x => x.MaLopHoc == maLopHoc).Include(x => x.GioiTinh).Include(x => x.KhoiLop).Include(x => x.LopHoc).Include(x => x.TrangThaiHoc).OrderBy(x => x.Ten).ThenBy(x => x.Ho).ToListAsync();
         }
 
-        public async Task<HocSinh> UpdateHocSinh(string maHocSinh, HocSinh request)
+        public async Task<HocSinh> UpdateHocSinh(long maHocSinh, HocSinh request)
         {
             var hocSinh = await GetHocSinh(maHocSinh);
             if (hocSinh != null)

@@ -9,7 +9,6 @@ namespace TruongMamNon.BackendApi.Data.Configurations
         public void Configure(EntityTypeBuilder<HocSinh> builder)
         {
             builder.ToTable("HocSinhs");
-            builder.Property(x => x.Id).IsRequired();
             builder.HasKey(x => x.MaHocSinh);
             builder.Property(x => x.Ho).IsRequired().HasMaxLength(200);
             builder.Property(x => x.Ten).IsRequired().HasMaxLength(200);

@@ -74,8 +74,50 @@ namespace TruongMamNon.BackendApi.Helpers
             CreateMap<ChiTietPhieuXuatThucPham, UpdateChiTietPhieuXuatThucPhamRequest>().ReverseMap();
 
             CreateMap<ChucVu, ChucVuVm>().ReverseMap();
+            CreateMap<ChucVu, AUChucVuRequest>().ReverseMap();
+
+            CreateMap<Vitamin, VitaminVm>().ReverseMap();
+            CreateMap<Vitamin, AUVitaminRequest>().ReverseMap();
+
+            CreateMap<ThuocSoGiun, ThuocSoGiunVm>().ReverseMap();
+            CreateMap<ThuocSoGiun, AUThuocSoGiunRequest>().ReverseMap();
+
+            CreateMap<DotKhamSucKhoe, DotKhamSucKhoeVm>().ReverseMap();
+            CreateMap<DotKhamSucKhoe, AUDotKhamSucKhoeRequest>().ReverseMap();
+
+            CreateMap<DotSoGiun, DotSoGiunVm>().ReverseMap();
+            CreateMap<DotSoGiun, AUDotSoGiunRequest>().ReverseMap();
+
+            CreateMap<DotUongVitamin, DotUongVitaminVm>().ReverseMap();
+            CreateMap<DotUongVitamin, AUDotUongVitaminRequest>().ReverseMap();
+
+            CreateMap<PhieuKhamSucKhoe, PhieuKhamSucKhoeVm>().ReverseMap();
+            CreateMap<PhieuKhamSucKhoe, AUPhieuKhamSucKhoeRequest>().ReverseMap();
+
+            CreateMap<PhieuSoGiun, PhieuSoGiunVm>().ReverseMap();
+            CreateMap<PhieuSoGiun, AUPhieuSoGiunRequest>().ReverseMap();
+
+            CreateMap<PhieuUongVitamin, PhieuUongVitaminVm>().ReverseMap();
+            CreateMap<PhieuUongVitamin, AUPhieuUongVitaminRequest>().ReverseMap();
+
             CreateMap<DanhMucThucDon, DanhMucThucDonVm>().ReverseMap();
-            CreateMap<ChucVu, CreateChucVuVm>().ReverseMap();
+            CreateMap<DanhMucThucDon, AUDanhMucThucDonRequest>().ReverseMap();
+
+            CreateMap<MonAn, MonAnVm>().ReverseMap();
+            CreateMap<MonAn, AddMonAnRequest>().ReverseMap();
+            CreateMap<MonAn, UpdateMonAnRequest>().ReverseMap();
+
+            CreateMap<MonAnThucPham, MonAnThucPhamVm>().ReverseMap();
+            CreateMap<MonAnThucPham, AddMonAnThucPhamRequest>().ReverseMap();
+            CreateMap<MonAnThucPham, UpdateMonAnThucPhamRequest>().ReverseMap();
+
+            CreateMap<ThucDon, ThucDonVm>().ReverseMap();
+            CreateMap<ThucDon, AddThucDonRequest>().ReverseMap();
+            CreateMap<ThucDon, UpdateThucDonRequest>().ReverseMap();
+
+            CreateMap<ThucDonMonAn, ThucDonMonAnVm>().ReverseMap();
+            CreateMap<ThucDonMonAn, AddThucDonMonAnRequest>().ReverseMap();
+            CreateMap<ThucDonMonAn, UpdateThucDonMonAnRequest>().ReverseMap();
         }
     }
 }

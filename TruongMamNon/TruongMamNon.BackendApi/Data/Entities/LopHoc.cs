@@ -1,4 +1,6 @@
-﻿namespace TruongMamNon.BackendApi.Data.Entities
+﻿using Newtonsoft.Json;
+
+namespace TruongMamNon.BackendApi.Data.Entities
 {
     public class LopHoc
     {
@@ -12,7 +14,9 @@
         public KhoiLop KhoiLop { get; set; }
         public NienHoc NienHoc { get; set; }
 
+        [JsonIgnore]
         public virtual List<GiaoVienChuNhiem> GiaoVienChuNhiems { get; set; }
+        [JsonIgnore]
         public virtual List<HocSinh> HocSinhs { get; set; }
     }
 }

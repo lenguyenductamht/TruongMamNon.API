@@ -52,7 +52,6 @@ namespace TruongMamNon.BackendApi.Repositories
             var chiTietPhieuXuatThucPham = await GetChiTietPhieuXuatThucPham(maPhieuXuatThucPham, maThucPham);
             if (chiTietPhieuXuatThucPham != null)
             {
-                chiTietPhieuXuatThucPham.DonGia = request.DonGia;
                 chiTietPhieuXuatThucPham.SoLuong = request.SoLuong;
                 await _context.SaveChangesAsync();
                 return chiTietPhieuXuatThucPham;

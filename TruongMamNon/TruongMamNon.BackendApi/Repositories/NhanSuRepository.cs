@@ -21,7 +21,7 @@ namespace TruongMamNon.BackendApi.Repositories
             return nhanSu.Entity;
         }
 
-        public async Task<NhanSu> DeleteNhanSu(string maNhanSu)
+        public async Task<NhanSu> DeleteNhanSu(long maNhanSu)
         {
             var nhanSu = await GetNhanSu(maNhanSu);
             if (nhanSu != null)
@@ -33,12 +33,12 @@ namespace TruongMamNon.BackendApi.Repositories
             return null;
         }
 
-        public async Task<bool> Exists(string maNhanSu)
+        public async Task<bool> Exists(long maNhanSu)
         {
             return await _context.NhanSus.AnyAsync(x => x.MaNhanSu == maNhanSu);
         }
 
-        public async Task<NhanSu> GetNhanSu(string maNhanSu)
+        public async Task<NhanSu> GetNhanSu(long maNhanSu)
         {
             return await _context.NhanSus.FirstOrDefaultAsync(x => x.MaNhanSu == maNhanSu);
         }
@@ -48,7 +48,7 @@ namespace TruongMamNon.BackendApi.Repositories
             return await _context.NhanSus.Include(nameof(GioiTinh)).Include(nameof(KhoiLop)).Include(nameof(LoaiNhanSu)).Include(nameof(PhongBan)).Include(nameof(ChucVu)).Include(nameof(DanToc)).Include(nameof(TonGiao)).Include(x => x.QuocTich).Include(nameof(TrangThaiLamViec)).OrderBy(x => x.Ten).ThenBy(x => x.Ho).ToListAsync();
         }
 
-        public async Task<NhanSu> UpdateNhanSu(string maNhanSu, NhanSu request)
+        public async Task<NhanSu> UpdateNhanSu(long maNhanSu, NhanSu request)
         {
             var nhanSu = await GetNhanSu(maNhanSu);
             if (nhanSu != null)

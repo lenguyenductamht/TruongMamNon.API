@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TruongMamNon.BackendApi.Data.EF;
 using TruongMamNon.BackendApi.Data.Entities;
 using TruongMamNon.BackendApi.Helpers;
+using TruongMamNon.BackendApi.Repositories;
+using TruongMamNon.BackendApi.RequestModels;
 using TruongMamNon.BackendApi.ViewModels;
 
 namespace TruongMamNon.BackendApi.Controllers
@@ -11,103 +14,63 @@ namespace TruongMamNon.BackendApi.Controllers
     [ApiController]
     public class ThuocSoGiunsController : ControllerBase
     {
-        private readonly TruongMamNonDbContext _context;
+        private readonly IThuocSoGiunRepository _thuocSoGiunRepository;
+        private readonly IMapper _mapper;
 
-        public ThuocSoGiunsController(TruongMamNonDbContext context)
+        public ThuocSoGiunsController(IThuocSoGiunRepository thuocSoGiunRepository, IMapper mapper)
         {
-            _context = context;
+            _thuocSoGiunRepository = thuocSoGiunRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostThuocSoGiun(CreateThuocSoGiunVm model)
+        public async Task<IActionResult> AddThuocSoGiun([FromBody] AUThuocSoGiunRequest request)
         {
-            var thuocSoGiun = new ThuocSoGiun()
-            {
-                TenThuocSoGiun = model.TenThuocSoGiun,
-                GhiChu = model.GhiChu,
-            };
-            _context.ThuocSoGiuns.Add(thuocSoGiun);
-            var result = await _context.SaveChangesAsync();
-
-            if (result > 0)
-            {
-                return CreatedAtAction(nameof(GetByMa), new { ma = thuocSoGiun.MaThuocSoGiun }, model);
-            }
-            else
-            {
-                return BadRequest(new ApiBadRequestResponse("Tạo mới không thành công"));
-            }
+            var thuocSoGiun = await _thuocSoGiunRepository.AddThuocSoGiun(_mapper.Map<ThuocSoGiun>(request));
+            return CreatedAtAction(nameof(GetThuocSoGiun), new { maThuocSoGiun = thuocSoGiun.MaThuocSoGiun }, _mapper.Map<ThuocSoGiunVm>(thuocSoGiun));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetThuocSoGiuns()
         {
-            var thuocSoGiuns = _context.ThuocSoGiuns;
-            var thuocSoGiunVms = await thuocSoGiuns.Select(x => new ThuocSoGiunVm()
-            {
-                MaThuocSoGiun = x.MaThuocSoGiun,
-                TenThuocSoGiun = x.TenThuocSoGiun,
-                GhiChu = x.GhiChu,
-            }).ToListAsync();
-            return Ok(thuocSoGiunVms);
+            var thuocSoGiuns = await _thuocSoGiunRepository.GetThuocSoGiuns();
+            return Ok(_mapper.Map<List<ThuocSoGiunVm>>(thuocSoGiuns));
         }
 
-        [HttpGet("{ma}")]
-        public async Task<IActionResult> GetByMa(int ma)
+        [HttpGet("{maThuocSoGiun}"), ActionName("GetThuocSoGiun")]
+        public async Task<IActionResult> GetThuocSoGiun([FromRoute] int maThuocSoGiun)
         {
-            var thuocSoGiun = await _context.ThuocSoGiuns.FindAsync(ma);
+            var thuocSoGiun = await _thuocSoGiunRepository.GetThuocSoGiun(maThuocSoGiun);
             if (thuocSoGiun == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-
-            ThuocSoGiunVm thuocSoGiunVm = new ThuocSoGiunVm()
             {
-                MaThuocSoGiun = thuocSoGiun.MaThuocSoGiun,
-                TenThuocSoGiun = thuocSoGiun.TenThuocSoGiun,
-                GhiChu = thuocSoGiun.GhiChu,
-            };
-
-            return Ok(thuocSoGiunVm);
-        }
-
-        [HttpPut("{ma}")]
-        public async Task<IActionResult> PutThuocSoGiun(int ma, [FromBody] CreateThuocSoGiunVm model)
-        {
-            var thuocSoGiun = await _context.ThuocSoGiuns.FindAsync(ma);
-            if (thuocSoGiun == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-            thuocSoGiun.TenThuocSoGiun = model.TenThuocSoGiun;
-            thuocSoGiun.GhiChu = model.GhiChu;
-
-            _context.ThuocSoGiuns.Update(thuocSoGiun);
-            var result = await _context.SaveChangesAsync();
-
-            if (result > 0)
-            {
-                return NoContent();
+                return NotFound();
             }
-            return BadRequest(new ApiBadRequestResponse("Cập nhật không thành công"));
+            return Ok(_mapper.Map<ThuocSoGiunVm>(thuocSoGiun));
         }
 
-        [HttpDelete("{ma}")]
-        public async Task<IActionResult> DeleteThuocSoGiun(int ma)
+        [HttpPut("{maThuocSoGiun}")]
+        public async Task<IActionResult> UpdateThuocSoGiun([FromRoute] int maThuocSoGiun, [FromBody] AUThuocSoGiunRequest request)
         {
-            var thuocSoGiun = await _context.ThuocSoGiuns.FindAsync(ma);
-            if (thuocSoGiun == null)
-                return NotFound(new ApiNotFoundResponse($"Không tìm thấy mã: {ma}"));
-
-            _context.ThuocSoGiuns.Remove(thuocSoGiun);
-            var result = await _context.SaveChangesAsync();
-            if (result > 0)
+            if (await _thuocSoGiunRepository.Exists(maThuocSoGiun))
             {
-                ThuocSoGiunVm thuocSoGiunVm = new ThuocSoGiunVm()
+                var thuocSoGiun = await _thuocSoGiunRepository.UpdateThuocSoGiun(maThuocSoGiun, _mapper.Map<ThuocSoGiun>(request));
+                if (thuocSoGiun != null)
                 {
-                    MaThuocSoGiun = thuocSoGiun.MaThuocSoGiun,
-                    TenThuocSoGiun = thuocSoGiun.TenThuocSoGiun,
-                    GhiChu = thuocSoGiun.GhiChu,
-                };
-                return Ok(thuocSoGiunVm);
+                    return Ok(_mapper.Map<ThuocSoGiunVm>(thuocSoGiun));
+                }
             }
-            return BadRequest(new ApiBadRequestResponse("Xóa không thành công"));
+            return NotFound();
+        }
+
+        [HttpDelete("{maThuocSoGiun}")]
+        public async Task<IActionResult> DeleteThuocSoGiun([FromRoute] int maThuocSoGiun)
+        {
+            if (await _thuocSoGiunRepository.Exists(maThuocSoGiun))
+            {
+                var thuocSoGiun = await _thuocSoGiunRepository.DeleteThuocSoGiun(maThuocSoGiun);
+                return Ok(_mapper.Map<ThuocSoGiunVm>(thuocSoGiun));
+            }
+            return NotFound();
         }
     }
 }

@@ -2,8 +2,7 @@
 {
     public class HocSinh
     {
-        public int Id { get; set; }
-        public string MaHocSinh { get; set; }
+        public long MaHocSinh { get; set; }
         public string Ho { get; set; }
         public string Ten { get; set; }
         public string MaGioiTinh { get; set; }
@@ -48,7 +47,7 @@
         public TrangThaiTaiKhoan TrangThaiTaiKhoan { get; set; }
 
         public virtual List<DiemDanh> DiemDanhs { get; set; }
-        public virtual List<KhamSucKhoe> KhamSucKhoes { get; set; }
+        public virtual List<PhieuKhamSucKhoe> PhieuKhamSucKhoes { get; set; }
         public virtual List<PhieuSoGiun> PhieuSoGiuns { get; set; }
         public virtual List<PhieuTiemVaccine> PhieuTiemVaccines { get; set; }
         public virtual List<PhieuUongVitamin> PhieuUongVitamins { get; set; }

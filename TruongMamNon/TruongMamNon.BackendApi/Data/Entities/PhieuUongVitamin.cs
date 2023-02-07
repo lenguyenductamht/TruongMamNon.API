@@ -4,7 +4,7 @@
     {
         public long MaPhieuUongVitamin { get; set; }
         public int MaDotUongVitamin { get; set; }
-        public string MaHocSinh { get; set; }
+        public long MaHocSinh { get; set; }
         public string TrangThai { get; set; }
 
         public DotUongVitamin DotUongVitamin { get; set; }

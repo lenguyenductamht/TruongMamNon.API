@@ -23,7 +23,7 @@ namespace TruongMamNon.BackendApi.Data.EF
             modelBuilder.ApplyConfiguration(new DiemDanhConfiguration());
             modelBuilder.ApplyConfiguration(new GiaoVienChuNhiemConfiguration());
             modelBuilder.ApplyConfiguration(new HocSinhConfiguration());
-            modelBuilder.ApplyConfiguration(new KhamSucKhoeConfiguration());
+            modelBuilder.ApplyConfiguration(new PhieuKhamSucKhoeConfiguration());
             modelBuilder.ApplyConfiguration(new KhoiLopConfiguration());
             modelBuilder.ApplyConfiguration(new LoaiNhanSuConfiguration());
             modelBuilder.ApplyConfiguration(new LopHocConfiguration());
@@ -47,6 +47,7 @@ namespace TruongMamNon.BackendApi.Data.EF
             modelBuilder.ApplyConfiguration(new DotTiemVaccineConfiguration());
             modelBuilder.ApplyConfiguration(new DotSoGiunConfiguration());
             modelBuilder.ApplyConfiguration(new DotUongVitaminConfiguration());
+            modelBuilder.ApplyConfiguration(new DotKhamSucKhoeConfiguration());
             modelBuilder.ApplyConfiguration(new GioiTinhConfiguration());
             modelBuilder.ApplyConfiguration(new DanTocConfiguration());
             modelBuilder.ApplyConfiguration(new TonGiaoConfiguration());
@@ -72,10 +73,11 @@ namespace TruongMamNon.BackendApi.Data.EF
         public DbSet<DotSoGiun> DotSoGiuns { get; set; }
         public DbSet<DotTiemVaccine> DotTiemVaccines { get; set; }
         public DbSet<DotUongVitamin> DotUongVitamins { get; set; }
+        public DbSet<DotKhamSucKhoe> DotKhamSucKhoes { get; set; }
         public DbSet<GiaoVienChuNhiem> GiaoVienChuNhiems { get; set; }
         public DbSet<GioiTinh> GioiTinhs { get; set; }
         public DbSet<HocSinh> HocSinhs { get; set; }
-        public DbSet<KhamSucKhoe> KhamSucKhoes { get; set; }
+        public DbSet<PhieuKhamSucKhoe> PhieuKhamSucKhoes { get; set; }
         public DbSet<KhoiLop> KhoiLops { get; set; }
         public DbSet<LoaiNhanSu> LoaiNhanSus { get; set; }
         public DbSet<LopHoc> LopHocs { get; set; }

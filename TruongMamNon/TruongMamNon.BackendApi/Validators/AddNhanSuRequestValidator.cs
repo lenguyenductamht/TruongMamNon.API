@@ -8,8 +8,6 @@ namespace TruongMamNon.BackendApi.Validators
     {
         public AddNhanSuRequestValidator(ICommonRepository commonRepository, IPhongBanRepository phongBanRepository, ILoaiNhanSuRepository loaiNhanSuRepository)
         {
-            RuleFor(x => x.MaNhanSu).NotEmpty();
-
             RuleFor(x => x.Ho).NotEmpty().MaximumLength(200);
 
             RuleFor(x => x.Ten).NotEmpty().MaximumLength(200);

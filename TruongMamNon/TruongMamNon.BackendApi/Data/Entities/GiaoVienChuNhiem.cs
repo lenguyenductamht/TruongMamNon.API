@@ -2,7 +2,7 @@
 {
     public class GiaoVienChuNhiem
     {
-        public string MaNhanSu { get; set; }
+        public long MaNhanSu { get; set; }
         public int MaLopHoc { get; set; }
 
         public NhanSu NhanSu { get; set; }

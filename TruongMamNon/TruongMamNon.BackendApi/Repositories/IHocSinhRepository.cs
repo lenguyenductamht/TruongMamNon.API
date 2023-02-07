@@ -6,9 +6,9 @@ namespace TruongMamNon.BackendApi.Repositories
     {
         Task<HocSinh> AddHocSinh(HocSinh request);
 
-        Task<HocSinh> DeleteHocSinh(string maHocSinh);
+        Task<HocSinh> DeleteHocSinh(long maHocSinh);
 
-        Task<bool> Exists(string maHocSinh);
+        Task<bool> Exists(long maHocSinh);
 
         Task<List<HocSinh>> GetHocSinhs();
 
@@ -16,8 +16,8 @@ namespace TruongMamNon.BackendApi.Repositories
 
         Task<List<HocSinh>> GetHocSinhsByLopHoc(int maLopHoc);
 
-        Task<HocSinh> GetHocSinh(string maHocSinh);
+        Task<HocSinh> GetHocSinh(long maHocSinh);
 
-        Task<HocSinh> UpdateHocSinh(string maHocSinh, HocSinh request);
+        Task<HocSinh> UpdateHocSinh(long maHocSinh, HocSinh request);
     }
 }

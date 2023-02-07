@@ -10,7 +10,6 @@ namespace TruongMamNon.BackendApi.Data.Configurations
         {
             builder.ToTable("NhanSus");
             builder.HasKey(x => x.MaNhanSu);
-            builder.Property(x => x.Id).IsRequired();
             builder.Property(x => x.Ho).IsRequired().HasMaxLength(200);
             builder.Property(x => x.Ten).IsRequired().HasMaxLength(200);
             builder.Property(x => x.MaGioiTinh).IsRequired().HasMaxLength(1);

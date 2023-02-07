@@ -6,15 +6,16 @@ namespace TruongMamNon.BackendApi.Repositories
     {
         Task<PhieuTiemVaccine> AddPhieuTiemVaccine(PhieuTiemVaccine request);
 
-        Task<PhieuTiemVaccine> DeletePhieuTiemVaccine(int maPhieuTiemVaccine);
+        Task<PhieuTiemVaccine> DeletePhieuTiemVaccine(long maPhieuTiemVaccine);
 
-        Task<bool> Exists(int maPhieuTiemVaccine);
+        Task<bool> Exists(long maPhieuTiemVaccine);
 
         Task<List<PhieuTiemVaccine>> GetPhieuTiemVaccines();
+
         public Task<List<PhieuTiemVaccine>> GetPhieuTiemVaccinesByNienHoc(int maNienHoc);
 
-        Task<PhieuTiemVaccine> GetPhieuTiemVaccine(int maPhieuTiemVaccine);
+        Task<PhieuTiemVaccine> GetPhieuTiemVaccine(long maPhieuTiemVaccine);
 
-        Task<PhieuTiemVaccine> UpdatePhieuTiemVaccine(int maPhieuTiemVaccine, PhieuTiemVaccine request);
+        Task<PhieuTiemVaccine> UpdatePhieuTiemVaccine(long maPhieuTiemVaccine, PhieuTiemVaccine request);
     }
 }

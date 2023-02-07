@@ -2,7 +2,6 @@
 {
     public class AddHocSinhRequest
     {
-        public string MaHocSinh { get; set; }
         public string Ho { get; set; }
         public string Ten { get; set; }
         public string MaGioiTinh { get; set; }

@@ -15,11 +15,6 @@ namespace TruongMamNon.BackendApi.Data.Configurations
             builder.Property(x => x.TonKho).IsRequired();
             builder.Property(x => x.MaDanhMuc).IsRequired();
 
-            builder.Property(x => x.NangLuong).IsRequired();
-            builder.Property(x => x.ChatDam).IsRequired();
-            builder.Property(x => x.ChatBeo).IsRequired();
-            builder.Property(x => x.ChatBot).IsRequired();
-
             builder.HasOne(x => x.DanhMucThucPham).WithMany(x => x.ThucPhams).HasForeignKey(x => x.MaDanhMuc);
         }
     }

@@ -56,9 +56,6 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<int>("MaThucPham")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("DonGia")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<double>("SoLuong")
                         .HasColumnType("float");
 
@@ -175,20 +172,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDanhMuc"), 1L, 1);
 
-                    b.Property<double>("ChatBeo")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ChatBot")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ChatDam")
-                        .HasColumnType("float");
-
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("NangLuong")
-                        .HasColumnType("float");
 
                     b.Property<string>("TenDanhMuc")
                         .IsRequired()
@@ -207,11 +192,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         new
                         {
                             MaDanhMuc = 1,
-                            ChatBeo = 10.0,
-                            ChatBot = 30.0,
-                            ChatDam = 20.0,
                             GhiChu = "",
-                            NangLuong = 100.0,
                             TenDanhMuc = "Thực đơn lớp mầm bữa sáng",
                             ThoiGian = "07:30"
                         });
@@ -595,9 +576,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("MaDiemDanh"), 1L, 1);
 
-                    b.Property<string>("MaHocSinh")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("MaHocSinh")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("MaTrangThaiDiemDanh")
                         .IsRequired()
@@ -613,6 +593,32 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.HasIndex("MaTrangThaiDiemDanh");
 
                     b.ToTable("DiemDanhs", (string)null);
+                });
+
+            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotKhamSucKhoe", b =>
+                {
+                    b.Property<int>("MaDotKhamSucKhoe")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDotKhamSucKhoe"), 1L, 1);
+
+                    b.Property<int>("MaNienHoc")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("NgayKhamSucKhoe")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("TenDotKhamSucKhoe")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("MaDotKhamSucKhoe");
+
+                    b.HasIndex("MaNienHoc");
+
+                    b.ToTable("DotKhamSucKhoes", (string)null);
                 });
 
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotSoGiun", b =>
@@ -710,8 +716,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.GiaoVienChuNhiem", b =>
                 {
-                    b.Property<string>("MaNhanSu")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("MaNhanSu")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("MaLopHoc")
                         .HasColumnType("int");
@@ -758,8 +764,11 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.HocSinh", b =>
                 {
-                    b.Property<string>("MaHocSinh")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("MaHocSinh")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("MaHocSinh"), 1L, 1);
 
                     b.Property<string>("CMNDPhuHuynh")
                         .HasMaxLength(200)
@@ -796,9 +805,6 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<string>("LyDoNghiHoc")
                         .HasMaxLength(200)
@@ -895,7 +901,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            MaHocSinh = "2020210001",
+                            MaHocSinh = 1L,
                             CMNDPhuHuynh = "012345678910",
                             DiaChi = "HCM",
                             DiaChiPhuHuynh = "140 Lê trọng tấn",
@@ -905,7 +911,6 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                             Ho = "Lê Nguyễn Đại Đức",
                             HoKhau = "Long An",
                             HoTenPhuHuynh = "Lê Huỳnh Nam",
-                            Id = 1,
                             LyDoNghiHoc = "",
                             MaDanToc = "01",
                             MaGioiTinh = "0",
@@ -917,7 +922,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                             MaTrangThaiTaiKhoan = "0",
                             MatKhau = "Client@123",
                             NamSinhPhuHuynh = "1968",
-                            NgayCapNhat = new DateTime(2023, 1, 9, 15, 6, 33, 80, DateTimeKind.Local).AddTicks(9749),
+                            NgayCapNhat = new DateTime(2023, 2, 6, 11, 50, 56, 529, DateTimeKind.Local).AddTicks(1798),
                             NgayNhapHoc = new DateTime(2022, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgaySinh = new DateTime(2001, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgheNghiepPhuHuynh = "Tự do",
@@ -925,130 +930,6 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                             SDTPhuHuynh = "0123456789",
                             Ten = "Tâm"
                         });
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.KhamSucKhoe", b =>
-                {
-                    b.Property<long>("MaKhamSucKhoe")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("MaKhamSucKhoe"), 1L, 1);
-
-                    b.Property<double>("BMI")
-                        .HasColumnType("float");
-
-                    b.Property<string>("CacBenhRangHamMat")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CacBenhTaiMuiHong")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CacBenhVeMat")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CanNang")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ChieuCao")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HamDuoi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HamTren")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HoHap")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HocSinhMaHocSinh")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("KetLuan")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LamSangKhac")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LoaiTheLuc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MaHocSinh")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MatPhaiCoKinh")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatPhaiKhongKinh")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatTraiCoKinh")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MatTraiKhongKinh")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("NgayKham")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NhipTim")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TaiPhaiNoiTham")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TaiPhaiNoiThuong")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TaiTraiNoiTham")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TaiTraiNoiThuong")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TamThu")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TamTruong")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TenDotKham")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("ThanKinhTamThan")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThanTietNieu")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TieuHoa")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TuanHoan")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("MaKhamSucKhoe");
-
-                    b.HasIndex("HocSinhMaHocSinh");
-
-                    b.ToTable("KhamSucKhoes", (string)null);
                 });
 
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.KhoiLop", b =>
@@ -1228,20 +1109,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaMonAn"), 1L, 1);
 
-                    b.Property<double>("ChatBeo")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ChatBot")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ChatDam")
-                        .HasColumnType("float");
-
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("NangLuong")
-                        .HasColumnType("float");
 
                     b.Property<string>("TenMonAn")
                         .IsRequired()
@@ -1256,21 +1125,13 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         new
                         {
                             MaMonAn = 1,
-                            ChatBeo = 0.0,
-                            ChatBot = 0.0,
-                            ChatDam = 0.0,
                             GhiChu = "",
-                            NangLuong = 0.0,
                             TenMonAn = "Chôm chôm"
                         },
                         new
                         {
                             MaMonAn = 2,
-                            ChatBeo = 0.0,
-                            ChatBot = 0.0,
-                            ChatDam = 0.0,
                             GhiChu = "",
-                            NangLuong = 0.0,
                             TenMonAn = "Thịt heo nạc xào đậu cô ve"
                         });
                 });
@@ -1315,8 +1176,11 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.NhanSu", b =>
                 {
-                    b.Property<string>("MaNhanSu")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("MaNhanSu")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("MaNhanSu"), 1L, 1);
 
                     b.Property<string>("CMND")
                         .IsRequired()
@@ -1343,9 +1207,6 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<string>("HoKhau")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<string>("LyDoThoiViec")
                         .HasMaxLength(200)
@@ -1450,14 +1311,13 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            MaNhanSu = "1020210001",
+                            MaNhanSu = 1L,
                             CMND = "123456789",
                             DiaChi = "Tân Phú",
                             Email = "lenguyenductamcv@gmail.com",
                             HinhAnh = "",
                             Ho = "Lê Nguyễn Đại Đức",
                             HoKhau = "Long An",
-                            Id = 1,
                             LyDoThoiViec = "",
                             MaChucVu = 3,
                             MaDanToc = "01",
@@ -1469,7 +1329,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                             MaTrangThaiLamViec = "0",
                             MaTrangThaiTaiKhoan = "0",
                             MatKhau = "Admin@123",
-                            NgayCapNhat = new DateTime(2023, 1, 9, 15, 6, 33, 81, DateTimeKind.Local).AddTicks(48),
+                            NgayCapNhat = new DateTime(2023, 2, 6, 11, 50, 56, 529, DateTimeKind.Local).AddTicks(2305),
                             NgaySinh = new DateTime(2001, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgayVaoTruong = new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NoiSinh = "Long An",
@@ -1480,8 +1340,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.NhanSuPhanQuyen", b =>
                 {
-                    b.Property<string>("MaNhanSu")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("MaNhanSu")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("MaQuyen")
                         .HasColumnType("int");
@@ -1495,7 +1355,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.HasData(
                         new
                         {
-                            MaNhanSu = "1020210001",
+                            MaNhanSu = 1L,
                             MaQuyen = 1
                         });
                 });
@@ -1621,6 +1481,123 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuKhamSucKhoe", b =>
+                {
+                    b.Property<long>("MaPhieuKhamSucKhoe")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("MaPhieuKhamSucKhoe"), 1L, 1);
+
+                    b.Property<double>("BMI")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CacBenhRangHamMat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CacBenhTaiMuiHong")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CacBenhVeMat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CanNang")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChieuCao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HamDuoi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HamTren")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HoHap")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KetLuan")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LamSangKhac")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LoaiTheLuc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaDotKhamSucKhoe")
+                        .HasColumnType("int");
+
+                    b.Property<long>("MaHocSinh")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("MatPhaiCoKinh")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatPhaiKhongKinh")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatTraiCoKinh")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatTraiKhongKinh")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NhipTim")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TaiPhaiNoiTham")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TaiPhaiNoiThuong")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TaiTraiNoiTham")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TaiTraiNoiThuong")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TamThu")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TamTruong")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ThanKinhTamThan")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThanTietNieu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TieuHoa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TuanHoan")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MaPhieuKhamSucKhoe");
+
+                    b.HasIndex("MaDotKhamSucKhoe");
+
+                    b.HasIndex("MaHocSinh");
+
+                    b.ToTable("PhieuKhamSucKhoes", (string)null);
+                });
+
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuNhapThucPham", b =>
                 {
                     b.Property<long>("MaPhieuNhapThucPham")
@@ -1632,9 +1609,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MaNguoiNhap")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("MaNguoiNhap")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("NgayNhap")
                         .HasColumnType("datetime2");
@@ -1661,9 +1637,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<int>("MaDotSoGiun")
                         .HasColumnType("int");
 
-                    b.Property<string>("MaHocSinh")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("MaHocSinh")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("TrangThai")
                         .HasColumnType("nvarchar(max)");
@@ -1688,9 +1663,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<int>("MaDotTiemVaccine")
                         .HasColumnType("int");
 
-                    b.Property<string>("MaHocSinh")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("MaHocSinh")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("TrangThai")
                         .HasColumnType("nvarchar(max)");
@@ -1715,9 +1689,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<int>("MaDotUongVitamin")
                         .HasColumnType("int");
 
-                    b.Property<string>("MaHocSinh")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("MaHocSinh")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("TrangThai")
                         .HasColumnType("nvarchar(max)");
@@ -1742,9 +1715,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MaNguoiXuat")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("MaNguoiXuat")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("NgayXuat")
                         .HasColumnType("datetime2");
@@ -2052,27 +2024,12 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaThucPham"), 1L, 1);
 
-                    b.Property<double>("ChatBeo")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ChatBot")
-                        .HasColumnType("float");
-
-                    b.Property<double>("ChatDam")
-                        .HasColumnType("float");
-
                     b.Property<string>("DonViTinh")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HinhAnh")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("MaDanhMuc")
                         .HasColumnType("int");
-
-                    b.Property<double>("NangLuong")
-                        .HasColumnType("float");
 
                     b.Property<string>("TenThucPham")
                         .IsRequired()
@@ -2092,52 +2049,32 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         new
                         {
                             MaThucPham = 1,
-                            ChatBeo = 0.0,
-                            ChatBot = 16400.0,
-                            ChatDam = 1500.0,
                             DonViTinh = "Kg",
-                            HinhAnh = "",
                             MaDanhMuc = 4,
-                            NangLuong = 72000.0,
                             TenThucPham = "Chôm chôm",
                             TonKho = 0.0
                         },
                         new
                         {
                             MaThucPham = 2,
-                            ChatBeo = 1000.0,
-                            ChatBot = 11000.0,
-                            ChatDam = 5000.0,
                             DonViTinh = "Kg",
-                            HinhAnh = "",
                             MaDanhMuc = 4,
-                            NangLuong = 73000.0,
                             TenThucPham = "Đậu cô ve",
                             TonKho = 0.0
                         },
                         new
                         {
                             MaThucPham = 3,
-                            ChatBeo = 7000.0,
-                            ChatBot = 0.0,
-                            ChatDam = 19000.0,
                             DonViTinh = "Kg",
-                            HinhAnh = "",
                             MaDanhMuc = 2,
-                            NangLuong = 139000.0,
                             TenThucPham = "Thịt heo nạc",
                             TonKho = 0.0
                         },
                         new
                         {
                             MaThucPham = 4,
-                            ChatBeo = 0.0,
-                            ChatBot = 11000.0,
-                            ChatDam = 900.0,
                             DonViTinh = "Kg",
-                            HinhAnh = "",
                             MaDanhMuc = 4,
-                            NangLuong = 48000.0,
                             TenThucPham = "Nhãn",
                             TonKho = 0.0
                         });
@@ -2641,6 +2578,17 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Navigation("TrangThaiDiemDanh");
                 });
 
+            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotKhamSucKhoe", b =>
+                {
+                    b.HasOne("TruongMamNon.BackendApi.Data.Entities.NienHoc", "NienHoc")
+                        .WithMany("DotKhamSucKhoes")
+                        .HasForeignKey("MaNienHoc")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("NienHoc");
+                });
+
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotSoGiun", b =>
                 {
                     b.HasOne("TruongMamNon.BackendApi.Data.Entities.NienHoc", "NienHoc")
@@ -2774,15 +2722,6 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Navigation("TrangThaiHoc");
 
                     b.Navigation("TrangThaiTaiKhoan");
-                });
-
-            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.KhamSucKhoe", b =>
-                {
-                    b.HasOne("TruongMamNon.BackendApi.Data.Entities.HocSinh", "HocSinh")
-                        .WithMany("KhamSucKhoes")
-                        .HasForeignKey("HocSinhMaHocSinh");
-
-                    b.Navigation("HocSinh");
                 });
 
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.LopHoc", b =>
@@ -2919,6 +2858,25 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Navigation("NhanSu");
 
                     b.Navigation("PhanQuyen");
+                });
+
+            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuKhamSucKhoe", b =>
+                {
+                    b.HasOne("TruongMamNon.BackendApi.Data.Entities.DotKhamSucKhoe", "DotKhamSucKhoe")
+                        .WithMany("PhieuKhamSucKhoes")
+                        .HasForeignKey("MaDotKhamSucKhoe")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TruongMamNon.BackendApi.Data.Entities.HocSinh", "HocSinh")
+                        .WithMany("PhieuKhamSucKhoes")
+                        .HasForeignKey("MaHocSinh")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DotKhamSucKhoe");
+
+                    b.Navigation("HocSinh");
                 });
 
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.PhieuNhapThucPham", b =>
@@ -3063,6 +3021,11 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     b.Navigation("NhanSus");
                 });
 
+            modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotKhamSucKhoe", b =>
+                {
+                    b.Navigation("PhieuKhamSucKhoes");
+                });
+
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.DotSoGiun", b =>
                 {
                     b.Navigation("PhieuSoGiuns");
@@ -3089,7 +3052,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                 {
                     b.Navigation("DiemDanhs");
 
-                    b.Navigation("KhamSucKhoes");
+                    b.Navigation("PhieuKhamSucKhoes");
 
                     b.Navigation("PhieuSoGiuns");
 
@@ -3141,6 +3104,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
             modelBuilder.Entity("TruongMamNon.BackendApi.Data.Entities.NienHoc", b =>
                 {
+                    b.Navigation("DotKhamSucKhoes");
+
                     b.Navigation("DotSoGiuns");
 
                     b.Navigation("DotTiemVaccines");

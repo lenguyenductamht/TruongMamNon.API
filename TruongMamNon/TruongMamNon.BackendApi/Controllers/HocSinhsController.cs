@@ -63,7 +63,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpGet("{maHocSinh}"), ActionName("GetHocSinh")]
-        public async Task<IActionResult> GetHocSinh([FromRoute] string maHocSinh)
+        public async Task<IActionResult> GetHocSinh([FromRoute] long maHocSinh)
         {
             var hocSinh = await _hocSinhRepository.GetHocSinh(maHocSinh);
             if (hocSinh == null)
@@ -74,7 +74,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpPut("{maHocSinh}")]
-        public async Task<IActionResult> UpdateHocSinh([FromRoute] string maHocSinh, [FromBody] UpdateHocSinhRequest request)
+        public async Task<IActionResult> UpdateHocSinh([FromRoute] long maHocSinh, [FromBody] UpdateHocSinhRequest request)
         {
             if (await _hocSinhRepository.Exists(maHocSinh))
             {
@@ -88,7 +88,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpDelete("{maHocSinh}")]
-        public async Task<IActionResult> DeleteHocSinh([FromRoute] string maHocSinh)
+        public async Task<IActionResult> DeleteHocSinh([FromRoute] long maHocSinh)
         {
             if (await _hocSinhRepository.Exists(maHocSinh))
             {

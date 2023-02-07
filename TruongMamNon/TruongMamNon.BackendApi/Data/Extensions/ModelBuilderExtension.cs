@@ -199,11 +199,7 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                     TenThucPham = "Chôm chôm",
                     DonViTinh = "Kg",
                     TonKho = 0,
-                    MaDanhMuc = 4,
-                    NangLuong = 72000,
-                    ChatDam = 1500,
-                    ChatBeo = 0,
-                    ChatBot = 16400
+                    MaDanhMuc = 4
                 },
                 new ThucPham()
                 {
@@ -211,11 +207,7 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                     TenThucPham = "Đậu cô ve",
                     DonViTinh = "Kg",
                     TonKho = 0,
-                    MaDanhMuc = 4,
-                    NangLuong = 73000,
-                    ChatDam = 5000,
-                    ChatBeo = 1000,
-                    ChatBot = 11000
+                    MaDanhMuc = 4
                 },
                 new ThucPham()
                 {
@@ -223,11 +215,7 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                     TenThucPham = "Thịt heo nạc",
                     DonViTinh = "Kg",
                     TonKho = 0,
-                    MaDanhMuc = 2,
-                    NangLuong = 139000,
-                    ChatDam = 19000,
-                    ChatBeo = 7000,
-                    ChatBot = 0
+                    MaDanhMuc = 2
                 },
                 new ThucPham()
                 {
@@ -235,11 +223,7 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                     TenThucPham = "Nhãn",
                     DonViTinh = "Kg",
                     TonKho = 0,
-                    MaDanhMuc = 4,
-                    NangLuong = 48000,
-                    ChatDam = 900,
-                    ChatBeo = 0,
-                    ChatBot = 11000
+                    MaDanhMuc = 4
                 });
 
             modelBuilder.Entity<LopHoc>().HasData(
@@ -250,8 +234,7 @@ namespace TruongMamNon.BackendApi.Data.Extensions
             modelBuilder.Entity<HocSinh>().HasData(
                 new HocSinh()
                 {
-                    Id = 1,
-                    MaHocSinh = "2020210001",
+                    MaHocSinh = 1,
                     Ho = "Lê Nguyễn Đại Đức",
                     Ten = "Tâm",
                     MaGioiTinh = "0",
@@ -288,18 +271,14 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                     TenDanhMuc = "Thực đơn lớp mầm bữa sáng",
                     GhiChu = "",
                     ThoiGian = "07:30",
-                    NangLuong = 100,
-                    ChatDam = 20,
-                    ChatBeo = 10,
-                    ChatBot = 30,
                 });
 
             modelBuilder.Entity<ThucDon>().HasData(
                 new ThucDon() { MaThucDon = 1, NgayApDung = new DateTime(2022, 12, 5), NgayTao = new DateTime(2022, 12, 3), MaDanhMuc = 1 });
 
             modelBuilder.Entity<MonAn>().HasData(
-                new MonAn() { MaMonAn = 1, TenMonAn = "Chôm chôm", GhiChu = "", NangLuong = 0, ChatDam = 0, ChatBeo = 0, ChatBot = 0 },
-                new MonAn() { MaMonAn = 2, TenMonAn = "Thịt heo nạc xào đậu cô ve", GhiChu = "", NangLuong = 0, ChatDam = 0, ChatBeo = 0, ChatBot = 0 });
+                new MonAn() { MaMonAn = 1, TenMonAn = "Chôm chôm", GhiChu = "" },
+                new MonAn() { MaMonAn = 2, TenMonAn = "Thịt heo nạc xào đậu cô ve", GhiChu = "" });
 
             modelBuilder.Entity<MonAnThucPham>().HasData(
                 new MonAnThucPham() { MaMonAn = 1, MaThucPham = 1, SoLuong = 0.05 },
@@ -349,8 +328,7 @@ namespace TruongMamNon.BackendApi.Data.Extensions
             modelBuilder.Entity<NhanSu>().HasData(
                new NhanSu()
                {
-                   Id = 1,
-                   MaNhanSu = "1020210001",
+                   MaNhanSu = 1,
                    Ho = "Lê Nguyễn Đại Đức",
                    Ten = "Tâm",
                    MaGioiTinh = "0",
@@ -379,7 +357,7 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                });
 
             modelBuilder.Entity<NhanSuPhanQuyen>().HasData(
-              new NhanSuPhanQuyen() { MaNhanSu = "1020210001", MaQuyen = 1 });
+              new NhanSuPhanQuyen() { MaNhanSu = 1, MaQuyen = 1 });
 
             modelBuilder.Entity<Vaccine>().HasData(
                 new Vaccine() { MaVaccine = 1, TenVaccine = "Vắc xin cúm mùa", GhiChu = "" },

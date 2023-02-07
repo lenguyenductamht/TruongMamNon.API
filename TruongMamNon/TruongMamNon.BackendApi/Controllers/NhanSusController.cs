@@ -49,7 +49,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpGet("{maNhanSu}"), ActionName("GetNhanSu")]
-        public async Task<IActionResult> GetNhanSu([FromRoute] string maNhanSu)
+        public async Task<IActionResult> GetNhanSu([FromRoute] long maNhanSu)
         {
             var nhanSu = await _nhanSuRepository.GetNhanSu(maNhanSu);
             if (nhanSu == null)
@@ -60,7 +60,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpPut("{maNhanSu}")]
-        public async Task<IActionResult> UpdateNhanSu([FromRoute] string maNhanSu, [FromBody] UpdateNhanSuRequest request)
+        public async Task<IActionResult> UpdateNhanSu([FromRoute] long maNhanSu, [FromBody] UpdateNhanSuRequest request)
         {
             if (await _nhanSuRepository.Exists(maNhanSu))
             {
@@ -74,7 +74,7 @@ namespace TruongMamNon.BackendApi.Controllers
         }
 
         [HttpDelete("{maNhanSu}")]
-        public async Task<IActionResult> DeleteNhanSu([FromRoute] string maNhanSu)
+        public async Task<IActionResult> DeleteNhanSu([FromRoute] long maNhanSu)
         {
             if (await _nhanSuRepository.Exists(maNhanSu))
             {

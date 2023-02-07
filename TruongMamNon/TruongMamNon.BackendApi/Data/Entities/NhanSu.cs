@@ -2,8 +2,7 @@
 {
     public class NhanSu
     {
-        public int Id { get; set; }
-        public string MaNhanSu { get; set; }
+        public long MaNhanSu { get; set; }
         public string Ho { get; set; }
         public string Ten { get; set; }
         public string MaGioiTinh { get; set; }

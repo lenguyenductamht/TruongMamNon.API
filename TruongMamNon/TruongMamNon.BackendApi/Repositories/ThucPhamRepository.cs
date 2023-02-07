@@ -80,10 +80,6 @@ namespace TruongMamNon.BackendApi.Repositories
                 thucPham.DonViTinh = request.DonViTinh;
                 thucPham.TonKho = request.TonKho;
                 thucPham.MaDanhMuc = request.MaDanhMuc;
-                thucPham.NangLuong = request.NangLuong;
-                thucPham.ChatDam = request.ChatDam;
-                thucPham.ChatBeo = request.ChatBeo;
-                thucPham.ChatBot = request.ChatBot;
                 await _context.SaveChangesAsync();
                 return thucPham;
             }
