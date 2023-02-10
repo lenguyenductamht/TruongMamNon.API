@@ -352,7 +352,7 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                    HoKhau = "Long An",
                    DiaChi = "Tân Phú",
                    HinhAnh = "",
-                   MatKhau = "Admin@123",
+                   MatKhau = "0e7517141fb53f21ee439b355b5a1d0a",
                    MaTrangThaiTaiKhoan = "0",
                });
 

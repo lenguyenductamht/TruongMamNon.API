@@ -49,7 +49,7 @@ namespace TruongMamNon.BackendApi.Repositories
 
         public async Task<List<LopHoc>> GetLopHocsByNienHoc(int maNienHoc)
         {
-            return await _context.LopHocs.Where(x => x.MaNienHoc == maNienHoc).ToListAsync();
+            return await _context.LopHocs.Include(x=>x.KhoiLop).Include(x=>x.NienHoc).Where(x => x.MaNienHoc == maNienHoc).ToListAsync();
         }
 
         public async Task<List<LopHoc>> GetLopHocsByNienHocKhoiLop(int maNienHoc, int maKhoiLop)

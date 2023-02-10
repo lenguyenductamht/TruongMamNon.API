@@ -83,5 +83,11 @@ namespace TruongMamNon.BackendApi.Controllers
             }
             return NotFound();
         }
+
+        [HttpPost("DangNhap")]
+        public JsonResult NhanSuDangNhap(DangNhapVm dangNhapVm)
+        {
+            return new JsonResult(_nhanSuRepository.NhanSuDangNhap(dangNhapVm.MaNhanSu, MD5Hash.MD5(dangNhapVm.MatKhau)));
+        }
     }
 }

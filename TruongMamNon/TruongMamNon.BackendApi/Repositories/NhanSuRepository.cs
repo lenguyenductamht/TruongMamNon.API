@@ -48,6 +48,11 @@ namespace TruongMamNon.BackendApi.Repositories
             return await _context.NhanSus.Include(nameof(GioiTinh)).Include(nameof(KhoiLop)).Include(nameof(LoaiNhanSu)).Include(nameof(PhongBan)).Include(nameof(ChucVu)).Include(nameof(DanToc)).Include(nameof(TonGiao)).Include(x => x.QuocTich).Include(nameof(TrangThaiLamViec)).OrderBy(x => x.Ten).ThenBy(x => x.Ho).ToListAsync();
         }
 
+        public int NhanSuDangNhap(long maNhanSu, string matKhau)
+        {
+            return _context.NhanSus.Count(x => x.MaNhanSu == maNhanSu && x.MatKhau == matKhau);
+        }
+
         public async Task<NhanSu> UpdateNhanSu(long maNhanSu, NhanSu request)
         {
             var nhanSu = await GetNhanSu(maNhanSu);

@@ -15,5 +15,7 @@ namespace TruongMamNon.BackendApi.Repositories
         Task<NhanSu> GetNhanSu(long maNhanSu);
 
         Task<NhanSu> UpdateNhanSu(long maNhanSu, NhanSu request);
+
+        int NhanSuDangNhap(long maNhanSu, string matKhau);
     }
 }
