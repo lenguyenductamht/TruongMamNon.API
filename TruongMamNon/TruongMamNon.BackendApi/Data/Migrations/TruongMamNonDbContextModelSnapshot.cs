@@ -193,8 +193,29 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         {
                             MaDanhMuc = 1,
                             GhiChu = "",
-                            TenDanhMuc = "Thực đơn lớp mầm bữa sáng",
+                            TenDanhMuc = "Thực đơn bữa sáng",
                             ThoiGian = "07:30"
+                        },
+                        new
+                        {
+                            MaDanhMuc = 2,
+                            GhiChu = "",
+                            TenDanhMuc = "Thực đơn bữa phụ",
+                            ThoiGian = "09:30"
+                        },
+                        new
+                        {
+                            MaDanhMuc = 3,
+                            GhiChu = "",
+                            TenDanhMuc = "Thực đơn bữa trưa",
+                            ThoiGian = "11:30"
+                        },
+                        new
+                        {
+                            MaDanhMuc = 4,
+                            GhiChu = "",
+                            TenDanhMuc = "Thực đơn bữa chiều",
+                            ThoiGian = "14:30"
                         });
                 });
 
@@ -922,7 +943,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                             MaTrangThaiTaiKhoan = "0",
                             MatKhau = "Client@123",
                             NamSinhPhuHuynh = "1968",
-                            NgayCapNhat = new DateTime(2023, 2, 6, 11, 50, 56, 529, DateTimeKind.Local).AddTicks(1798),
+                            NgayCapNhat = new DateTime(2023, 2, 16, 15, 38, 27, 151, DateTimeKind.Local).AddTicks(9091),
                             NgayNhapHoc = new DateTime(2022, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgaySinh = new DateTime(2001, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgheNghiepPhuHuynh = "Tự do",
@@ -1075,7 +1096,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         new
                         {
                             MaLop = 1,
-                            HocPhi = 0m,
+                            HocPhi = 850000m,
                             MaKhoiLop = 4,
                             MaNienHoc = 4,
                             SiSoToiDa = 80,
@@ -1084,7 +1105,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         new
                         {
                             MaLop = 2,
-                            HocPhi = 0m,
+                            HocPhi = 850000m,
                             MaKhoiLop = 4,
                             MaNienHoc = 4,
                             SiSoToiDa = 80,
@@ -1093,11 +1114,65 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         new
                         {
                             MaLop = 3,
-                            HocPhi = 0m,
+                            HocPhi = 850000m,
                             MaKhoiLop = 4,
                             MaNienHoc = 4,
                             SiSoToiDa = 80,
                             TenLop = "Lớp mầm 3"
+                        },
+                        new
+                        {
+                            MaLop = 4,
+                            HocPhi = 850000m,
+                            MaKhoiLop = 5,
+                            MaNienHoc = 4,
+                            SiSoToiDa = 80,
+                            TenLop = "Lớp chồi 1 "
+                        },
+                        new
+                        {
+                            MaLop = 5,
+                            HocPhi = 850000m,
+                            MaKhoiLop = 5,
+                            MaNienHoc = 4,
+                            SiSoToiDa = 80,
+                            TenLop = "Lớp chồi 2"
+                        },
+                        new
+                        {
+                            MaLop = 6,
+                            HocPhi = 850000m,
+                            MaKhoiLop = 5,
+                            MaNienHoc = 4,
+                            SiSoToiDa = 80,
+                            TenLop = "Lớp chồi 3"
+                        },
+                        new
+                        {
+                            MaLop = 7,
+                            HocPhi = 850000m,
+                            MaKhoiLop = 6,
+                            MaNienHoc = 4,
+                            SiSoToiDa = 80,
+                            TenLop = "Lớp lá 1"
+                        },
+                        new
+                        {
+                            MaLop = 8,
+                            HocPhi = 850000m,
+                            MaKhoiLop = 6,
+                            MaNienHoc = 4,
+                            SiSoToiDa = 80,
+                            TenLop = "Lớp lá 2"
+                        },
+                        new
+                        {
+                            MaLop = 9,
+                            HocPhi = 850000m,
+                            MaKhoiLop = 6,
+                            MaNienHoc = 4,
+                            SiSoToiDa = 80,
+                            TenLop = "Lớp lá 3"
                         });
                 });
 
@@ -1328,8 +1403,8 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                             MaTonGiao = "99",
                             MaTrangThaiLamViec = "0",
                             MaTrangThaiTaiKhoan = "0",
-                            MatKhau = "Admin@123",
-                            NgayCapNhat = new DateTime(2023, 2, 6, 11, 50, 56, 529, DateTimeKind.Local).AddTicks(2305),
+                            MatKhau = "0e7517141fb53f21ee439b355b5a1d0a",
+                            NgayCapNhat = new DateTime(2023, 2, 16, 15, 38, 27, 151, DateTimeKind.Local).AddTicks(9348),
                             NgaySinh = new DateTime(2001, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NgayVaoTruong = new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             NoiSinh = "Long An",
@@ -2077,6 +2152,150 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                             MaDanhMuc = 4,
                             TenThucPham = "Nhãn",
                             TonKho = 0.0
+                        },
+                        new
+                        {
+                            MaThucPham = 5,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Táo",
+                            TonKho = 0.0
+                        },
+                        new
+                        {
+                            MaThucPham = 6,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Bơ",
+                            TonKho = 0.0
+                        },
+                        new
+                        {
+                            MaThucPham = 7,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Chuối",
+                            TonKho = 0.0
+                        },
+                        new
+                        {
+                            MaThucPham = 8,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Quả việt quất",
+                            TonKho = 0.0
+                        },
+                        new
+                        {
+                            MaThucPham = 9,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Cam",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 10,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Dâu tây",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 11,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 5,
+                            TenThucPham = "Trứng",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 12,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 2,
+                            TenThucPham = "Thịt bò nạc",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 13,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 2,
+                            TenThucPham = "Ức gà",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 14,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 2,
+                            TenThucPham = "Thịt cừu",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 15,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Măng tây",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 16,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Ớt chuông",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 17,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Bông cải xanh",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 18,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Cà chua",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 19,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 4,
+                            TenThucPham = "Hành tây",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 20,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 3,
+                            TenThucPham = "Cá hồi",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 21,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 3,
+                            TenThucPham = "Tôm",
+                            TonKho = 10.0
+                        },
+                        new
+                        {
+                            MaThucPham = 22,
+                            DonViTinh = "Kg",
+                            MaDanhMuc = 3,
+                            TenThucPham = "Cá ngừ",
+                            TonKho = 10.0
                         });
                 });
 

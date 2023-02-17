@@ -193,43 +193,39 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                 new DanhMucThucPham() { MaDanhMuc = 9, TenDanhMuc = "Thực phẩm khác", GhiChu = "" });
 
             modelBuilder.Entity<ThucPham>().HasData(
-                new ThucPham()
-                {
-                    MaThucPham = 1,
-                    TenThucPham = "Chôm chôm",
-                    DonViTinh = "Kg",
-                    TonKho = 0,
-                    MaDanhMuc = 4
-                },
-                new ThucPham()
-                {
-                    MaThucPham = 2,
-                    TenThucPham = "Đậu cô ve",
-                    DonViTinh = "Kg",
-                    TonKho = 0,
-                    MaDanhMuc = 4
-                },
-                new ThucPham()
-                {
-                    MaThucPham = 3,
-                    TenThucPham = "Thịt heo nạc",
-                    DonViTinh = "Kg",
-                    TonKho = 0,
-                    MaDanhMuc = 2
-                },
-                new ThucPham()
-                {
-                    MaThucPham = 4,
-                    TenThucPham = "Nhãn",
-                    DonViTinh = "Kg",
-                    TonKho = 0,
-                    MaDanhMuc = 4
-                });
+                new ThucPham() { MaThucPham = 1, TenThucPham = "Chôm chôm", DonViTinh = "Kg", TonKho = 0, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 2, TenThucPham = "Đậu cô ve", DonViTinh = "Kg", TonKho = 0, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 3, TenThucPham = "Thịt heo nạc", DonViTinh = "Kg", TonKho = 0, MaDanhMuc = 2 },
+                new ThucPham() { MaThucPham = 4, TenThucPham = "Nhãn", DonViTinh = "Kg", TonKho = 0, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 5, TenThucPham = "Táo", DonViTinh = "Kg", TonKho = 0, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 6, TenThucPham = "Bơ", DonViTinh = "Kg", TonKho = 0, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 7, TenThucPham = "Chuối", DonViTinh = "Kg", TonKho = 0, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 8, TenThucPham = "Quả việt quất", DonViTinh = "Kg", TonKho = 0, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 9, TenThucPham = "Cam", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 10, TenThucPham = "Dâu tây", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 11, TenThucPham = "Trứng", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 5 },
+                new ThucPham() { MaThucPham = 12, TenThucPham = "Thịt bò nạc", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 2 },
+                new ThucPham() { MaThucPham = 13, TenThucPham = "Ức gà", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 2 },
+                new ThucPham() { MaThucPham = 14, TenThucPham = "Thịt cừu", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 2 },
+                new ThucPham() { MaThucPham = 15, TenThucPham = "Măng tây", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 16, TenThucPham = "Ớt chuông", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 17, TenThucPham = "Bông cải xanh", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 18, TenThucPham = "Cà chua", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 19, TenThucPham = "Hành tây", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 4 },
+                new ThucPham() { MaThucPham = 20, TenThucPham = "Cá hồi", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 3 },
+                new ThucPham() { MaThucPham = 21, TenThucPham = "Tôm", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 3 },
+                new ThucPham() { MaThucPham = 22, TenThucPham = "Cá ngừ", DonViTinh = "Kg", TonKho = 10, MaDanhMuc = 3 });
 
             modelBuilder.Entity<LopHoc>().HasData(
-                new LopHoc() { MaLop = 1, TenLop = "Lớp mầm 1", MaKhoiLop = 4, SiSoToiDa = 80, HocPhi = 0, MaNienHoc = 4 },
-                new LopHoc() { MaLop = 2, TenLop = "Lớp mầm 2", MaKhoiLop = 4, SiSoToiDa = 80, HocPhi = 0, MaNienHoc = 4 },
-                new LopHoc() { MaLop = 3, TenLop = "Lớp mầm 3", MaKhoiLop = 4, SiSoToiDa = 80, HocPhi = 0, MaNienHoc = 4 });
+                new LopHoc() { MaLop = 1, TenLop = "Lớp mầm 1", MaKhoiLop = 4, SiSoToiDa = 80, HocPhi = 850000, MaNienHoc = 4 },
+                new LopHoc() { MaLop = 2, TenLop = "Lớp mầm 2", MaKhoiLop = 4, SiSoToiDa = 80, HocPhi = 850000, MaNienHoc = 4 },
+                new LopHoc() { MaLop = 3, TenLop = "Lớp mầm 3", MaKhoiLop = 4, SiSoToiDa = 80, HocPhi = 850000, MaNienHoc = 4 },
+                new LopHoc() { MaLop = 4, TenLop = "Lớp chồi 1 ", MaKhoiLop = 5, SiSoToiDa = 80, HocPhi = 850000, MaNienHoc = 4 },
+                new LopHoc() { MaLop = 5, TenLop = "Lớp chồi 2", MaKhoiLop = 5, SiSoToiDa = 80, HocPhi = 850000, MaNienHoc = 4 },
+                new LopHoc() { MaLop = 6, TenLop = "Lớp chồi 3", MaKhoiLop = 5, SiSoToiDa = 80, HocPhi = 850000, MaNienHoc = 4 },
+                new LopHoc() { MaLop = 7, TenLop = "Lớp lá 1", MaKhoiLop = 6, SiSoToiDa = 80, HocPhi = 850000, MaNienHoc = 4 },
+                new LopHoc() { MaLop = 8, TenLop = "Lớp lá 2", MaKhoiLop = 6, SiSoToiDa = 80, HocPhi = 850000, MaNienHoc = 4 },
+                new LopHoc() { MaLop = 9, TenLop = "Lớp lá 3", MaKhoiLop = 6, SiSoToiDa = 80, HocPhi = 850000, MaNienHoc = 4 });
 
             modelBuilder.Entity<HocSinh>().HasData(
                 new HocSinh()
@@ -265,13 +261,10 @@ namespace TruongMamNon.BackendApi.Data.Extensions
                 });
 
             modelBuilder.Entity<DanhMucThucDon>().HasData(
-                new DanhMucThucDon()
-                {
-                    MaDanhMuc = 1,
-                    TenDanhMuc = "Thực đơn lớp mầm bữa sáng",
-                    GhiChu = "",
-                    ThoiGian = "07:30",
-                });
+                new DanhMucThucDon() { MaDanhMuc = 1, TenDanhMuc = "Thực đơn bữa sáng", GhiChu = "", ThoiGian = "07:30", },
+                new DanhMucThucDon() { MaDanhMuc = 2, TenDanhMuc = "Thực đơn bữa phụ", GhiChu = "", ThoiGian = "09:30", },
+                new DanhMucThucDon() { MaDanhMuc = 3, TenDanhMuc = "Thực đơn bữa trưa", GhiChu = "", ThoiGian = "11:30", },
+                new DanhMucThucDon() { MaDanhMuc = 4, TenDanhMuc = "Thực đơn bữa chiều", GhiChu = "", ThoiGian = "14:30", });
 
             modelBuilder.Entity<ThucDon>().HasData(
                 new ThucDon() { MaThucDon = 1, NgayApDung = new DateTime(2022, 12, 5), NgayTao = new DateTime(2022, 12, 3), MaDanhMuc = 1 });

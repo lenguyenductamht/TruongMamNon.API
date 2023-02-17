@@ -17,11 +17,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TenDanhMuc = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ThoiGian = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NangLuong = table.Column<double>(type: "float", nullable: false),
-                    ChatDam = table.Column<double>(type: "float", nullable: false),
-                    ChatBeo = table.Column<double>(type: "float", nullable: false),
-                    ChatBot = table.Column<double>(type: "float", nullable: false)
+                    ThoiGian = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -101,11 +97,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     MaMonAn = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TenMonAn = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NangLuong = table.Column<double>(type: "float", nullable: false),
-                    ChatDam = table.Column<double>(type: "float", nullable: false),
-                    ChatBeo = table.Column<double>(type: "float", nullable: false),
-                    ChatBot = table.Column<double>(type: "float", nullable: false)
+                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -301,11 +293,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                     TenThucPham = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     DonViTinh = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TonKho = table.Column<double>(type: "float", nullable: false),
-                    MaDanhMuc = table.Column<int>(type: "int", nullable: false),
-                    NangLuong = table.Column<double>(type: "float", nullable: false),
-                    ChatDam = table.Column<double>(type: "float", nullable: false),
-                    ChatBeo = table.Column<double>(type: "float", nullable: false),
-                    ChatBot = table.Column<double>(type: "float", nullable: false)
+                    MaDanhMuc = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1082,8 +1070,14 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "DanhMucThucDons",
-                columns: new[] { "MaDanhMuc", "ChatBeo", "ChatBot", "ChatDam", "GhiChu", "NangLuong", "TenDanhMuc", "ThoiGian" },
-                values: new object[] { 1, 10.0, 30.0, 20.0, "", 100.0, "Thực đơn lớp mầm bữa sáng", "07:30" });
+                columns: new[] { "MaDanhMuc", "GhiChu", "TenDanhMuc", "ThoiGian" },
+                values: new object[,]
+                {
+                    { 1, "", "Thực đơn bữa sáng", "07:30" },
+                    { 2, "", "Thực đơn bữa phụ", "09:30" },
+                    { 3, "", "Thực đơn bữa trưa", "11:30" },
+                    { 4, "", "Thực đơn bữa chiều", "14:30" }
+                });
 
             migrationBuilder.InsertData(
                 table: "DanhMucThucPhams",
@@ -1137,19 +1131,23 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "MonAns",
-                columns: new[] { "MaMonAn", "ChatBeo", "ChatBot", "ChatDam", "GhiChu", "NangLuong", "TenMonAn" },
+                columns: new[] { "MaMonAn", "GhiChu", "TenMonAn" },
                 values: new object[,]
                 {
-                    { 1, 0.0, 0.0, 0.0, "", 0.0, "Chôm chôm" },
-                    { 2, 0.0, 0.0, 0.0, "", 0.0, "Thịt heo nạc xào đậu cô ve" }
+                    { 1, "", "Chôm chôm" },
+                    { 2, "", "Thịt heo nạc xào đậu cô ve" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "NienHocs",
+                columns: new[] { "MaNienHoc", "BatDauHK1", "BatDauHK2", "KetThucHK1", "KetThucHK2", "TenNienHoc" },
+                values: new object[] { 1, new DateTimeOffset(new DateTime(2019, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2020, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Năm học 2019-2020" });
 
             migrationBuilder.InsertData(
                 table: "NienHocs",
                 columns: new[] { "MaNienHoc", "BatDauHK1", "BatDauHK2", "KetThucHK1", "KetThucHK2", "TenNienHoc" },
                 values: new object[,]
                 {
-                    { 1, new DateTimeOffset(new DateTime(2019, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2020, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2020, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Năm học 2019-2020" },
                     { 2, new DateTimeOffset(new DateTime(2020, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2021, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2021, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2021, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Năm học 2020-2021" },
                     { 3, new DateTimeOffset(new DateTime(2021, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2022, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Năm học 2021-2022" },
                     { 4, new DateTimeOffset(new DateTime(2022, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), new DateTimeOffset(new DateTime(2023, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0)), "Năm học 2022-2023" }
@@ -1308,19 +1306,16 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Vitamins",
                 columns: new[] { "MaVitamin", "GhiChu", "TenVitamin" },
-                values: new object[,]
-                {
-                    { 1, "Uống", "Calci gluconat" },
-                    { 2, "Uống", "Vitamin A " },
-                    { 3, "Uống", "Vitamin A + D" },
-                    { 4, "Uống", "Thiamin hydroclorid" }
-                });
+                values: new object[] { 1, "Uống", "Calci gluconat" });
 
             migrationBuilder.InsertData(
                 table: "Vitamins",
                 columns: new[] { "MaVitamin", "GhiChu", "TenVitamin" },
                 values: new object[,]
                 {
+                    { 2, "Uống", "Vitamin A " },
+                    { 3, "Uống", "Vitamin A + D" },
+                    { 4, "Uống", "Thiamin hydroclorid" },
                     { 5, "Uống", "Vitamin B2 " },
                     { 6, "Uống", "Vitamin B6" },
                     { 7, "Uống", "Vitamin C" },
@@ -1349,9 +1344,15 @@ namespace TruongMamNon.BackendApi.Data.Migrations
                 columns: new[] { "MaLop", "HocPhi", "MaKhoiLop", "MaNienHoc", "SiSoToiDa", "TenLop" },
                 values: new object[,]
                 {
-                    { 1, 0m, 4, 4, 80, "Lớp mầm 1" },
-                    { 2, 0m, 4, 4, 80, "Lớp mầm 2" },
-                    { 3, 0m, 4, 4, 80, "Lớp mầm 3" }
+                    { 1, 850000m, 4, 4, 80, "Lớp mầm 1" },
+                    { 2, 850000m, 4, 4, 80, "Lớp mầm 2" },
+                    { 3, 850000m, 4, 4, 80, "Lớp mầm 3" },
+                    { 4, 850000m, 5, 4, 80, "Lớp chồi 1 " },
+                    { 5, 850000m, 5, 4, 80, "Lớp chồi 2" },
+                    { 6, 850000m, 5, 4, 80, "Lớp chồi 3" },
+                    { 7, 850000m, 6, 4, 80, "Lớp lá 1" },
+                    { 8, 850000m, 6, 4, 80, "Lớp lá 2" },
+                    { 9, 850000m, 6, 4, 80, "Lớp lá 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -1361,19 +1362,37 @@ namespace TruongMamNon.BackendApi.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "ThucPhams",
-                columns: new[] { "MaThucPham", "ChatBeo", "ChatBot", "ChatDam", "DonViTinh", "MaDanhMuc", "NangLuong", "TenThucPham", "TonKho" },
+                columns: new[] { "MaThucPham", "DonViTinh", "MaDanhMuc", "TenThucPham", "TonKho" },
                 values: new object[,]
                 {
-                    { 1, 0.0, 16400.0, 1500.0, "Kg", 4, 72000.0, "Chôm chôm", 0.0 },
-                    { 2, 1000.0, 11000.0, 5000.0, "Kg", 4, 73000.0, "Đậu cô ve", 0.0 },
-                    { 3, 7000.0, 0.0, 19000.0, "Kg", 2, 139000.0, "Thịt heo nạc", 0.0 },
-                    { 4, 0.0, 11000.0, 900.0, "Kg", 4, 48000.0, "Nhãn", 0.0 }
+                    { 1, "Kg", 4, "Chôm chôm", 0.0 },
+                    { 2, "Kg", 4, "Đậu cô ve", 0.0 },
+                    { 3, "Kg", 2, "Thịt heo nạc", 0.0 },
+                    { 4, "Kg", 4, "Nhãn", 0.0 },
+                    { 5, "Kg", 4, "Táo", 0.0 },
+                    { 6, "Kg", 4, "Bơ", 0.0 },
+                    { 7, "Kg", 4, "Chuối", 0.0 },
+                    { 8, "Kg", 4, "Quả việt quất", 0.0 },
+                    { 9, "Kg", 4, "Cam", 10.0 },
+                    { 10, "Kg", 4, "Dâu tây", 10.0 },
+                    { 11, "Kg", 5, "Trứng", 10.0 },
+                    { 12, "Kg", 2, "Thịt bò nạc", 10.0 },
+                    { 13, "Kg", 2, "Ức gà", 10.0 },
+                    { 14, "Kg", 2, "Thịt cừu", 10.0 },
+                    { 15, "Kg", 4, "Măng tây", 10.0 },
+                    { 16, "Kg", 4, "Ớt chuông", 10.0 },
+                    { 17, "Kg", 4, "Bông cải xanh", 10.0 },
+                    { 18, "Kg", 4, "Cà chua", 10.0 },
+                    { 19, "Kg", 4, "Hành tây", 10.0 },
+                    { 20, "Kg", 3, "Cá hồi", 10.0 },
+                    { 21, "Kg", 3, "Tôm", 10.0 },
+                    { 22, "Kg", 3, "Cá ngừ", 10.0 }
                 });
 
             migrationBuilder.InsertData(
                 table: "HocSinhs",
                 columns: new[] { "MaHocSinh", "CMNDPhuHuynh", "DiaChi", "DiaChiPhuHuynh", "EmailPhuHuynh", "GhiChu", "HinhAnh", "Ho", "HoKhau", "HoTenPhuHuynh", "LyDoNghiHoc", "MaDanToc", "MaGioiTinh", "MaKhoiLop", "MaLopHoc", "MaQuocTich", "MaTonGiao", "MaTrangThaiHoc", "MaTrangThaiTaiKhoan", "MatKhau", "NamSinhPhuHuynh", "NgayCapNhat", "NgayNhapHoc", "NgaySinh", "NgheNghiepPhuHuynh", "NoiSinh", "SDTPhuHuynh", "Ten" },
-                values: new object[] { 1L, "012345678910", "HCM", "140 Lê trọng tấn", "lenguyenductamht@gmail.com", "", "", "Lê Nguyễn Đại Đức", "Long An", "Lê Huỳnh Nam", "", "01", "0", 4, 1, "704", "99", "0", "0", "Client@123", "1968", new DateTime(2023, 2, 2, 9, 47, 20, 373, DateTimeKind.Local).AddTicks(6691), new DateTime(2022, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2001, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tự do", "Long An", "0123456789", "Tâm" });
+                values: new object[] { 1L, "012345678910", "HCM", "140 Lê trọng tấn", "lenguyenductamht@gmail.com", "", "", "Lê Nguyễn Đại Đức", "Long An", "Lê Huỳnh Nam", "", "01", "0", 4, 1, "704", "99", "0", "0", "Client@123", "1968", new DateTime(2023, 2, 16, 15, 38, 27, 151, DateTimeKind.Local).AddTicks(9091), new DateTime(2022, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2001, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tự do", "Long An", "0123456789", "Tâm" });
 
             migrationBuilder.InsertData(
                 table: "MonAnThucPhams",
@@ -1388,7 +1407,7 @@ namespace TruongMamNon.BackendApi.Data.Migrations
             migrationBuilder.InsertData(
                 table: "NhanSus",
                 columns: new[] { "MaNhanSu", "CMND", "DiaChi", "Email", "HinhAnh", "Ho", "HoKhau", "LyDoThoiViec", "MaChucVu", "MaDanToc", "MaGioiTinh", "MaKhoiLop", "MaLoaiNhanSu", "MaPhongBan", "MaQuocTich", "MaTonGiao", "MaTrangThaiLamViec", "MaTrangThaiTaiKhoan", "MatKhau", "NgayCap", "NgayCapNhat", "NgaySinh", "NgayVaoTruong", "NoiSinh", "SoDienThoai", "Ten" },
-                values: new object[] { 1L, "123456789", "Tân Phú", "lenguyenductamcv@gmail.com", "", "Lê Nguyễn Đại Đức", "Long An", "", 3, "01", "0", null, 1, 1, "704", "99", "0", "0", "Admin@123", null, new DateTime(2023, 2, 2, 9, 47, 20, 373, DateTimeKind.Local).AddTicks(6895), new DateTime(2001, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Long An", "123456789", "Tâm" });
+                values: new object[] { 1L, "123456789", "Tân Phú", "lenguyenductamcv@gmail.com", "", "Lê Nguyễn Đại Đức", "Long An", "", 3, "01", "0", null, 1, 1, "704", "99", "0", "0", "0e7517141fb53f21ee439b355b5a1d0a", null, new DateTime(2023, 2, 16, 15, 38, 27, 151, DateTimeKind.Local).AddTicks(9348), new DateTime(2001, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Long An", "123456789", "Tâm" });
 
             migrationBuilder.InsertData(
                 table: "ThucDonMonAns",
